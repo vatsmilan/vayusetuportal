@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Details</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .container { display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .event-card { background: white; padding: 30px; border-radius: 20px; width: 400px; text-align: center; }
+        .input-box { margin: 15px 0; }
+        input, select { width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="event-card">
+            <h1>Event Registration</h1>
+            <p>Fill in the details for your event</p>
+            <form>
+                <div class="input-box">
+                    <input type="text" placeholder="Event Name" required>
+                </div>
+                <div class="input-box">
+                    <select required>
+                        <option value="" disabled selected>Select Event Category</option>
+                        <option value="tech">Technical</option>
+                        <option value="sports">Sports</option>
+                        <option value="cultural">Cultural</option>
+                    </select>
+                </div>
+                <div class="input-box">
+                    <input type="date" required>
+                </div>
+                <button type="submit" class="btn">Submit Details</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
