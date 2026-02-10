@@ -5,430 +5,641 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VayuSetu Portal</title>
     <link rel="icon" type="image/jpeg" href="./favicon.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Orbitron:wght@600;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #c41e3a; --secondary: #1a237e;
-            --glass: rgba(255, 255, 255, 0.94);
-            --shadow: 0 15px 40px rgba(0,0,0,0.6);
+            /* NCC Flag Colors */
+            --ncc-red: #da291c;
+            --ncc-dark-blue: #00205b;
+            --ncc-light-blue: #7da1c4;
+            --ncc-gold: #FFD700;
+            
+            /* UI Colors */
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --card-bg: #ffffff;
+            --text-dark: #1e293b;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
         body {
-            margin: 0; padding: 20px; font-family: 'Segoe UI', sans-serif;
-            min-height: 100vh; background: url('./BG.jpg') no-repeat center center fixed;
-            background-size: cover; display: flex; justify-content: center; align-items: center;
+            height: 100vh;
+            width: 100vw;
+            /* DIAGONAL NCC FLAG GRADIENT */
+            background: linear-gradient(135deg, var(--ncc-red), var(--ncc-dark-blue), var(--ncc-light-blue));
+            background-size: 200% 200%;
+            animation: gradientMove 15s ease infinite;
+            display: flex;
+            overflow: hidden;
         }
-        body::before {
-            content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.25); z-index: -1;
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
-        .container {
-            width: 100%; max-width: 460px; background: var(--glass); padding: 40px 35px;
-            border-radius: 16px; box-shadow: var(--shadow); border-top: 6px solid var(--primary);
-            backdrop-filter: blur(8px); animation: slideUp 0.6s ease-out; text-align: center;
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            width: 320px;
+            background: rgba(0, 0, 0, 0.2); 
+            backdrop-filter: blur(10px);
+            border-right: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            padding: 30px 20px;
+            flex-shrink: 0;
+            z-index: 10;
         }
-        @keyframes slideUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        .brand-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding-bottom: 35px;
+            border-bottom: 1px solid var(--glass-border);
+            margin-bottom: 30px;
+            overflow: visible;
+        }
+
+        .brand-logo { 
+            width: 55px; height: 55px; border-radius: 50%; 
+            border: 3px solid var(--ncc-gold); 
+            background: white;
+            padding: 2px;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+            flex-shrink: 0;
+        }
         
-        .marquee-container {
-            position: fixed; top: 0; left: 0; width: 100%; background: linear-gradient(90deg, var(--primary), #d32f2f); 
-            color: white; padding: 10px 0; overflow: hidden; white-space: nowrap;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 999; font-family: 'Courier New', monospace;
-        }
-        .marquee-text { display: inline-block; padding-left: 100%; animation: scroll 25s linear infinite; font-weight: bold; font-size: 14px; letter-spacing: 1px; }
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-
-        .logo-container { display: flex; justify-content: center; align-items: center; gap: 15px; margin-bottom: 15px; }
-        .logo-container img { height: 75px; width: auto; object-fit: contain; filter: drop-shadow(0 4px 4px rgba(0,0,0,0.15)); }
-        h1 { 
-            color: var(--primary); margin: 5px 0 0 0; font-size: 34px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
-            text-shadow: 2px 2px 0px rgba(0,0,0,0.1); background: -webkit-linear-gradient(#c41e3a, #ff5252);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-        .portal-name { 
-            font-size: 13px; font-weight: 800; color: var(--secondary); margin-bottom: 25px; 
-            text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 1px solid #ddd; padding-bottom: 15px;
+        .brand-text {
+            flex: 1;
+            overflow: visible;
         }
 
-        .tabs { display: flex; gap: 10px; margin-bottom: 25px; background: #f1f3f4; padding: 5px; border-radius: 10px; }
-        .tab-button {
-            flex: 1; padding: 10px; border: none; background: transparent; font-weight: 700; cursor: pointer; color: #666;
-            transition: 0.3s; border-radius: 8px; font-size: 13px; text-transform: uppercase;
+        .brand-text h1 { 
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 2.2rem; 
+            font-weight: 800; 
+            background: linear-gradient(to right, var(--ncc-gold), #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 0px 10px rgba(255, 215, 0, 0.5);
+            line-height: 1;
+            letter-spacing: 3px;
+            margin-bottom: 5px;
+            white-space: nowrap;
         }
-        .tab-button.active { background: white; color: var(--primary); box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
-        .tab-content { display: none; animation: fadeIn 0.4s; }
-        .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        .brand-text span { 
+            font-size: 0.8rem; 
+            color: var(--ncc-gold); 
+            letter-spacing: 2px; 
+            font-weight: 600;
+            display: block;
+            margin-left: 4px;
+        }
+
+        .nav-links { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+
+        .nav-item {
+            padding: 16px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            color: rgba(255,255,255,0.9);
+            font-weight: 600;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid transparent;
+        }
+
+        .nav-item:hover { background: rgba(255,255,255,0.15); transform: translateX(5px); }
+        
+        .nav-item.active { 
+            background: white; 
+            color: var(--ncc-dark-blue); 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            font-weight: 800;
+        }
+
+        /* --- FOOTER: OVAL HIGHLIGHT --- */
+        .footer-credit {
+            margin-top: auto;
+            text-align: center;
+            font-size: 0.8rem;
+            color: white;
+            padding: 12px 15px;
+            /* Transparent Background Highlight */
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px; /* Makes it an oval/pill shape */
+            cursor: pointer;
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .footer-credit:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* --- MAIN AREA --- */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .top-deco {
+            height: 5px;
+            background: linear-gradient(90deg, #FF9933, #FFFFFF, #138808);
+            width: 100%;
+        }
+
+        .marquee-bar {
+            background: rgba(255,255,255,0.95);
+            padding: 8px 20px;
+            color: var(--ncc-dark-blue);
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .marquee-wrapper { flex: 1; overflow: hidden; white-space: nowrap; }
+        .marquee-text { display: inline-block; animation: scroll 20s linear infinite; }
+        @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+        .dashboard-container {
+            flex: 1;
+            padding: 30px;
+            overflow-y: auto;
+        }
+
+        .panel-view { display: none; animation: slideIn 0.4s ease; }
+        .panel-view.active { display: block; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .form-card {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            max-width: 900px;
+            margin: 0 auto;
+            border-top: 5px solid var(--ncc-red);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: var(--ncc-dark-blue);
+            font-weight: 800;
+            margin-bottom: 5px;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .section-desc { color: #777; margin-bottom: 30px; font-size: 0.9rem; }
+
+        .input-group { margin-bottom: 25px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        
+        label { 
+            display: block; 
+            font-size: 0.8rem; 
+            font-weight: 700; 
+            color: #555; 
+            margin-bottom: 8px; 
+            text-transform: uppercase; 
+            letter-spacing: 0.5px;
+        }
 
         input, select, textarea {
-            width: 100%; padding: 14px; margin-top: 12px; border: 2px solid #e0e0e0; border-radius: 8px;
-            box-sizing: border-box; font-size: 14px; background: #fff; transition: border-color 0.3s;
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 1rem;
+            color: var(--text-dark);
+            background: #f9fafb;
+            transition: 0.2s;
         }
-        input:focus, select:focus, textarea:focus { border-color: var(--primary); outline: none; }
-        input[readonly] { background-color: #f0f0f0; color: #444; border: 2px dashed #ccc; font-weight: bold; text-align: center; letter-spacing: 1px; cursor: not-allowed; }
 
-        .event-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .event-card { 
-            background: #fff; border: 2px solid #eee; padding: 12px; border-radius: 8px; cursor: pointer; 
-            font-size: 13px; font-weight: bold; transition: all 0.2s; color: #444;
-            display: flex; align-items: center; justify-content: center; text-align: center; min-height: 50px;
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--ncc-dark-blue);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(0, 32, 91, 0.1);
         }
-        .event-card:hover { border-color: var(--secondary); transform: translateY(-2px); }
-        .event-card.selected { 
-            background: var(--secondary); color: white; border-color: var(--secondary); 
-            background-image: linear-gradient(135deg, var(--secondary), #3949ab);
+
+        .date-badge {
+            background: #eef2ff;
+            color: var(--ncc-dark-blue);
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 700;
+            border: 1px dashed var(--ncc-dark-blue);
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-family: 'Orbitron', sans-serif;
         }
         
-        .extra-details-container {
-            display: none; margin-top: 15px; padding: 15px; border: 2px solid var(--secondary);
-            border-radius: 8px; background: #e8eaf6; text-align: left; animation: fadeIn 0.3s;
+        .btn-primary { 
+            background: linear-gradient(135deg, var(--ncc-dark-blue), #1e3a8a); 
+            color: white; 
+            box-shadow: 0 8px 20px rgba(0, 32, 91, 0.3);
         }
-        .extra-label { font-size: 12px; font-weight: bold; color: var(--secondary); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0, 32, 91, 0.4); }
 
-        .btn-submit {
-            width: 100%; padding: 16px; margin-top: 25px; background: linear-gradient(135deg, var(--primary), #b71c1c); 
-            color: white; border: none; border-radius: 8px; font-weight: 800; font-size: 16px; letter-spacing: 1px;
-            cursor: pointer; box-shadow: 0 8px 20px rgba(196, 30, 58, 0.25); transition: transform 0.2s;
+        .btn-accent {
+            background: linear-gradient(135deg, var(--ncc-red), #b91c1c);
+            color: white;
+            box-shadow: 0 8px 20px rgba(218, 41, 28, 0.3);
         }
-        .btn-submit:hover { transform: translateY(-2px); }
+        .btn-accent:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(218, 41, 28, 0.4); }
 
-        .admin-panel { display: none; margin-top: 25px; padding: 20px; background: #263238; color: white; border-radius: 10px; text-align: left; border: 1px solid #444; }
-        .admin-section { margin-bottom: 15px; border-bottom: 1px solid #455a64; padding-bottom: 15px; }
-        .btn-admin { width: auto; padding: 8px 15px; background: #546e7a; color: white; border: none; border-radius: 4px; cursor: pointer; margin-top: 8px; font-size: 12px; font-weight: bold; }
-        .btn-danger { background: #d32f2f; }
-        
-        .footer { margin-top: 30px; font-size: 11px; color: #777; cursor: pointer; user-select: none; font-weight: 500; }
-        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(4px); align-items: center; justify-content: center; }
-        .modal-content { background: white; padding: 30px; border-radius: 12px; text-align: center; width: 85%; max-width: 320px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .success-icon { font-size: 50px; color: #2e7d32; margin-bottom: 15px; display: block; }
+        .checkbox-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .checkbox-wrapper input { width: auto; margin: 0; }
+        .checkbox-wrapper span { font-size: 0.9rem; font-weight: 600; color: #555; }
+
+        .admin-row { display: flex; gap: 15px; margin-bottom: 15px; align-items: flex-end; }
+        .btn-sm { padding: 12px 20px; font-size: 0.9rem; width: auto; }
+        .btn-gray { background: #475569; color: white; }
+
+        @media (max-width: 768px) {
+            body { flex-direction: column; overflow: auto; height: auto; }
+            .sidebar { width: 100%; flex-direction: row; justify-content: space-between; align-items: center; padding: 15px; background: rgba(0,0,0,0.8); }
+            .brand-box { margin: 0; padding: 0; border: none; }
+            .brand-text h1 { font-size: 1.5rem; }
+            .nav-links { flex-direction: row; flex: none; }
+            .nav-item span { display: none; }
+            .nav-item { padding: 10px; }
+            .footer-credit { display: none; }
+            .dashboard-container { padding: 15px; }
+            .grid-2 { grid-template-columns: 1fr; }
+            .form-card { padding: 25px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="marquee-container"><div class="marquee-text" id="marqueeText">Loading...</div></div>
-
-    <div class="container">
-        <div class="logo-container">
-            <img src="./ncc-logo-png_seeklogo-440419.png" alt="NCC">
-            <img src="./1das.jpg" alt="Unit">
-        </div>
-        <h1>VAYUSETU</h1>
-        <div class="portal-name">1DAS Events Registration</div>
-
-        <div class="tabs">
-            <button class="tab-button active" onclick="switchTab('attendance')">Attendance</button>
-            <button class="tab-button" onclick="switchTab('event')">Events</button>
+    <div class="sidebar">
+        <div class="brand-box">
+            <img src="./1das.jpg" class="brand-logo" alt="Logo">
+            <div class="brand-text">
+                <h1>VAYUSETU</h1>
+                <span>PORTAL</span>
+            </div>
         </div>
 
-        <div id="attendance" class="tab-content active">
-            <label style="font-size:12px; color:#666; font-weight:bold; display:block; text-align:left; margin-bottom:-8px;">Attendance Date:</label>
-            <input type="text" id="displayDate" readonly value="Loading...">
-            <input list="regList" id="regAtt" placeholder="Regimental No" required>
-            <input list="rankList" id="rankAtt" placeholder="Rank" required>
-            <input list="nameList" id="nameAtt" placeholder="Name" required>
-            <select id="yearAtt"><option value="">Select Year</option><option>2nd Year</option><option>3rd Year</option></select>
-            <select id="squadAtt"><option value="">Select Squadron</option><option>Aquino</option><option>Brar</option><option>Chitnis</option><option>Katre</option></select>
-            <button class="btn-submit" onclick="submitData('attendance')">MARK PRESENT</button>
+        <div class="nav-links">
+            <div class="nav-item active" onclick="switchTab('attendance', this)">
+                <span>📅</span> <span>ATTENDANCE</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('events', this)">
+                <span>🚀</span> <span>EVENTS</span>
+            </div>
+            <div class="nav-item" id="adminNav" onclick="unlockAdmin(this)" style="display: none;">
+                <span>🔒</span> <span>ADMIN</span>
+            </div>
         </div>
 
-        <div id="event" class="tab-content">
-            <input list="regList" id="regEvt" placeholder="Regimental No">
-            <input list="rankList" id="rankEvt" placeholder="Rank">
-            <input list="nameList" id="nameEvt" placeholder="Name">
-            <select id="yearEvt"><option value="">Select Year</option><option>2nd Year</option><option>3rd Year</option></select>
-            <select id="squadEvt"><option value="">Select Squadron</option><option>Aquino</option><option>Brar</option><option>Chitnis</option><option>Katre</option></select>
-
-            <p style="text-align:left; font-weight:800; color:#444; margin-top:20px; font-size:14px; text-transform:uppercase;">Select Events:</p>
-            <div id="dynamicEventGrid" class="event-grid">
-                <div style="grid-column: span 2; text-align:center; color:#888;">Loading Events...</div>
-            </div>
-
-            <div id="extraDetailsArea" class="extra-details-container">
-                <div class="extra-label">ℹ️ Additional Details Required:</div>
-                <p id="extraDetailsPrompt" style="font-size:11px; margin:5px 0; color:#555;">For: Event Name</p>
-                <textarea id="extraDetailsInput" rows="3" placeholder="Enter details (e.g. Blood Group, Aadhar). Max 100 words." oninput="checkWordCount(this)"></textarea>
-                <div id="wordCountDisplay" style="font-size:10px; text-align:right; color:#666;">0/100 words</div>
-            </div>
-
-            <input type="text" id="otherEvent" placeholder="Event not listed? Request here..." style="border:2px dashed var(--primary); background:#fff5f5;">
-            <button class="btn-submit" onclick="submitData('event')">REGISTER</button>
-        </div>
-
-        <div class="footer" ondblclick="unlockAdmin()">&copy; Developed By Flt Cdt Milan Singh</div>
-
-        <div id="adminPanel" class="admin-panel">
-            <h3 style="color:#ffcc00; margin-top:0; border-bottom:1px solid #555; padding-bottom:10px;">👑 Admin Zone</h3>
-            
-            <div class="admin-section">
-                <label style="font-size:12px; color:#bbb;">📅 Set Date:</label>
-                <div style="display:flex; gap:5px;">
-                    <input type="date" id="adminDateInput" style="background:#444; color:white; border:none;">
-                    <button class="btn-admin" style="background:#f57f17;" onclick="updateConfig('date')">Set</button>
-                </div>
-            </div>
-
-            <div class="admin-section">
-                <label style="font-size:12px; color:#bbb;">🔴 Notice Board:</label>
-                <div style="display:flex; gap:5px;">
-                    <input type="text" id="newMarquee" placeholder="New text..." style="background:#444; color:white; border:none;">
-                    <button class="btn-admin" onclick="updateConfig('marquee')">Update</button>
-                </div>
-            </div>
-
-            <div class="admin-section">
-                <label style="font-size:12px; color:#bbb;">📂 Reports:</label>
-                <select id="pdfTarget" style="background:#444; color:white; border:none; margin-top:5px;">
-                    <option value="Attendance">Attendance (Total Strength)</option>
-                </select>
-                <button class="btn-admin" style="width:100%; background:#0288d1;" <button onclick="getPDF()">SEE DETAILS 📋</button>
-            </div>
-
-            <div class="admin-section" style="border:none;">
-                <label style="font-size:12px; color:#bbb;">⚙️ Manage Events:</label>
-                <div style="display:flex; gap:5px; align-items:center;">
-                    <input type="text" id="newEventName" placeholder="New Event Name" style="background:#444; color:white; border:none;">
-                </div>
-                <div style="margin-top:5px;">
-                    <label style="color:white; font-size:12px;">
-                        <input type="checkbox" id="reqExtraCheck" style="width:auto;"> Requires Extra Info?
-                    </label>
-                </div>
-                <button class="btn-admin" style="background:#2e7d32; width:100%; margin-top:5px;" onclick="manageEvent('add')">Add Event</button>
-                
-                <div style="display:flex; gap:5px; margin-top:10px;">
-                    <input type="text" id="delEventName" placeholder="Remove Event Name" style="background:#444; color:white; border:none;">
-                    <button class="btn-admin btn-danger" onclick="manageEvent('delete')">Del</button>
-                </div>
-            </div>
+        <div class="footer-credit" ondblclick="unlockAdmin()">
+            Developed By<br><strong>Flt Cdt Milan Singh</strong>
         </div>
     </div>
 
-    <div id="successModal" class="modal">
-        <div class="modal-content">
-            <span class="success-icon">✅</span>
-            <h3>Submitted!</h3>
-            <p id="modalMsg">Recorded successfully.</p>
-            <button class="btn-submit" onclick="document.getElementById('successModal').style.display='none'" style="margin-top:10px; width:100px; padding:10px;">OK</button>
+    <div class="main-content">
+        <div class="top-deco"></div>
+        
+        <div class="marquee-bar">
+            <div style="margin-right:20px; color:#da291c;">NOTICE:</div>
+            <div class="marquee-wrapper">
+                <span class="marquee-text" id="marqueeText">Welcome to VayuSetu Portal...</span>
+            </div>
+        </div>
+
+        <div class="dashboard-container">
+            
+            <div id="attendance" class="panel-view active">
+                <div class="form-card">
+                    <div class="section-title">Attendance</div>
+                    <div class="section-desc">Mark your presence for the parade/session.</div>
+
+                    <div class="date-badge">
+                        DATE: <span id="displayDate">Loading...</span>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Regimental Number</label>
+                        <input list="regList" id="regAtt" placeholder="Search Regimental No..." required>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label>Rank</label>
+                            <input list="rankList" id="rankAtt">
+                        </div>
+                        <div class="input-group">
+                            <label>Year</label>
+                            <select id="yearAtt"><option value="">Select</option><option>2nd Year</option><option>3rd Year</option></select>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Cadet Name</label>
+                        <input list="nameList" id="nameAtt">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Squadron</label>
+                        <select id="squadAtt"><option value="">Select Squadron</option><option>Aquino</option><option>Brar</option><option>Chitnis</option><option>Katre</option></select>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="submitData('attendance')">MARK PRESENT</button>
+                </div>
+            </div>
+
+            <div id="events" class="panel-view">
+                <div class="form-card">
+                    <div class="section-title">Mission Board</div>
+                    <div class="section-desc">Register for upcoming unit activities.</div>
+
+                    <div class="input-group">
+                        <label>Regimental Number</label>
+                        <input list="regList" id="regEvt" placeholder="Search Regimental No...">
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="input-group">
+                            <label>Rank</label>
+                            <input list="rankList" id="rankEvt">
+                        </div>
+                        <div class="input-group">
+                            <label>Year</label>
+                            <select id="yearEvt"><option value="">Select</option><option>2nd Year</option><option>3rd Year</option></select>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Cadet Name</label>
+                        <input list="nameList" id="nameEvt">
+                    </div>
+
+                    <div class="input-group">
+                        <label>Squadron</label>
+                        <select id="squadEvt"><option value="">Select Squadron</option><option>Aquino</option><option>Brar</option><option>Chitnis</option><option>Katre</option></select>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Select Event</label>
+                        <div id="dynamicEventGrid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                            <div style="padding:10px; text-align:center; color:#999; grid-column:span 2;">Loading...</div>
+                        </div>
+                    </div>
+
+                    <div id="extraDetailsArea" style="display:none; background:#fff7ed; padding:15px; border-radius:10px; border:1px solid #fdba74; margin-bottom:20px;">
+                        <label id="extraDetailsPrompt" style="color:#c2410c;">Additional Information:</label>
+                        <textarea id="extraDetailsInput" rows="2" placeholder="Enter required details..." oninput="checkWordCount(this)"></textarea>
+                        <div id="wordCountDisplay" style="text-align:right; font-size:0.75rem; color:#c2410c;">0/100</div>
+                    </div>
+
+                    <div class="input-group">
+                        <label>Special Request</label>
+                        <input type="text" id="otherEvent" placeholder="Type here if not listed above...">
+                    </div>
+
+                    <button class="btn btn-accent" onclick="submitData('event')">REGISTER NOW</button>
+                </div>
+            </div>
+
+            <div id="admin" class="panel-view">
+                <div class="form-card" style="border-top-color: var(--ncc-gold);">
+                    <div class="section-title" style="color:#d97706;">Admin Zone</div>
+                    <div class="section-desc">System configuration and reports.</div>
+
+                    <div class="admin-row">
+                        <div style="flex:1">
+                            <label>System Date</label>
+                            <input type="date" id="adminDateInput">
+                        </div>
+                        <button class="btn btn-sm btn-gray" onclick="updateConfig('date')">SET</button>
+                    </div>
+
+                    <div class="admin-row">
+                        <div style="flex:1">
+                            <label>Marquee Notice</label>
+                            <input type="text" id="newMarquee">
+                        </div>
+                        <button class="btn btn-sm btn-gray" onclick="updateConfig('marquee')">UPD</button>
+                    </div>
+
+                    <div class="admin-row">
+                        <div style="flex:1">
+                            <label>Reports</label>
+                            <select id="pdfTarget" style="margin-bottom:0;"><option value="Attendance">Attendance Log</option></select>
+                        </div>
+                        <button class="btn btn-sm btn-primary" onclick="getPDF()">SEE DETAILS 📋</button>
+                    </div>
+
+                    <hr style="margin:25px 0; border:0; border-top:1px solid #eee;">
+
+                    <label style="color:#1e293b; font-size:0.9rem;">Event Manager</label>
+                    <div class="admin-row">
+                        <input type="text" id="newEventName" placeholder="New Event Name">
+                        <button class="btn btn-sm" style="background:#16a34a; color:white;" onclick="manageEvent('add')">ADD</button>
+                    </div>
+                    
+                    <label class="checkbox-wrapper">
+                        <input type="checkbox" id="reqExtraCheck">
+                        <span>Require Extra Info?</span>
+                    </label>
+
+                    <div class="admin-row">
+                        <input type="text" id="delEventName" placeholder="Delete Event Name">
+                        <button class="btn btn-sm" style="background:#dc2626; color:white;" onclick="manageEvent('delete')">DEL</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
     <datalist id="regList"></datalist><datalist id="nameList"></datalist>
     <datalist id="rankList"><option value="FLT CDT"><option value="CDT SGT"><option value="CWO"><option value="CUO"><option value="CSUO"></datalist>
 
-<script>
-    // ⚠️ PASTE YOUR SCRIPT URL HERE ⚠️
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbykmQU7d-T7EhjOTqn5QxBckDPxAkwb81vT6RNg1n__zZx2XTY5mMX__XWJsNi5qIs/exec";
-    
-    // --- DATABASE ---
-    const regimentalNumbers = [];
-    for(let i=1000; i<=1132; i++) regimentalNumbers.push(`DL2025SDAF128${i}`);
-    const extraRegs = ["DL2024SDAF1280964", "DL2024SDAF1280642", "DL2024SDAF1280643", "DL2024SDAF1280644", "DL2024SDAF1280645", "DL2024SDAF1280646", "DL2024SDAF1280647", "DL2024SDAF1280648", "DL2024SDAF1280649", "DL2024SDAF1280650", "DL2024SDAF1280651", "DL2024SDAF1280960", "DL2024SDAF1280961", "DL2024SDAF1280962", "DL2024SDAF1280963", "DL2024SDAF1280965", "DL2024SDAF1280966", "DL2024SDAF1280967", "DL2024SDAF1280968", "DL2024SDAF1280969", "DL2024SDAF1280970", "DL2024SDAF1280971", "DL2024SDAF1280972", "DL2024SDAF1280973", "DL2024SDAF1280975", "DL2024SDAF1280979", "DL2024SDAF1280974", "DL2024SDAF1280590", "DL2024SDAF1280591", "DL2024SDAF1280592", "DL2024SDAF1280593", "DL2024SDAF1280594", "DL2024SDAF1280595", "DL2024SDAF1280596", "DL2024SDAF1280597", "DL2024SDAF1280598", "DL2024SDAF1280599", "DL2024SDAF1280600", "DL2024SDAF1280601", "DL2024SDAF1280602", "DL2024SDAF1280603", "DL2024SDAF1280604", "DL2024SDAF1280605", "DL2024SDAF1280606", "DL2024SDAF1280607", "DL2024SDAF1280608", "DL2024SDAF1280609", "DL2024SDAF1280610", "DL2024SDAF1280611", "DL2024SDAF1280612", "DL2024SDAF1280613", "DL2024SDAF1280615", "DL2024SDAF1280616", "DL2024SDAF1280617", "DL2024SDAF1280618", "DL2024SDAF1280619", "DL2024SDAF1280620", "DL2024SDAF1280621", "DL2024SDAF1280622", "DL2024SDAF1280623", "DL2024SDAF1280624", "DL2024SDAF1280625", "DL2024SDAF1280626", "DL2024SDAF1280627", "DL2024SDAF1280629", "DL2024SDAF1280631", "DL2024SDAF1280632", "DL2024SDAF1280633", "DL2024SDAF1280634", "DL2024SDAF1280635", "DL2024SDAF1280636", "DL2024SDAF1280637", "DL2024SDAF1280638", "DL2024SDAF1280639", "DL2024SDAF1280640", "DL2024SDAF1280641", "DL2024SDAF1280643", "DL2024SDAF1280942", "DL2024SDAF1280943", "DL2024SDAF1280944", "DL2024SDAF1280945", "DL2024SDAF1280946", "DL2024SDAF1280947", "DL2024SDAF1280948", "DL2024SDAF1280949", "DL2024SDAF1280950", "DL2024SDAF1280951", "DL2024SDAF1280952", "DL2024SDAF1280953", "DL2024SDAF1280954", "DL2024SDAF1280955", "DL2024SDAF1280956", "DL2024SDAF1280957", "DL2024SDAF1280958", "DL2024SDAF1280959","DL2025SDAF1280984", "DL2025SDAF1280985", "DL2025SDAF1280986", "DL2025SDAF1280987", "DL2025SDAF1280988", "DL2025SDAF1280989", "DL2025SDAF1280990", "DL2025SDAF1280991", "DL2025SDAF1280992", "DL2025SDAF1280993", "DL2025SDAF1280994", "DL2025SDAF1280995", "DL2025SDAF1280996", "DL2025SDAF1280997", "DL2025SDAF1280998", "DL2025SDAF1280999"];
-    regimentalNumbers.push(...extraRegs);
-    const names = ["Milan Singh", "PIYUSH PARMAR", "SAURABH YADAV", "Kartik Saini", "RISHABH RAJA", "Amrinder Singh Grewal", "Aniket Raj", "Kartikay Singh Jagirdar", "ANUJ YADAV", "Anubhav Kr Singh", "ABHINANDAN KUMAR SINGH", "SHUBHAM SHARMA", "RAHUL CHAURSIA", "ADITYA SIROHI", "Sameer chauhan", "Prem Bhardwaj", "Ravada Pawan Kumar", "Abhishek Mishra", "HARSHVARDHAN CHHETRI", "AALOK KUMAR", "Rahul Singh Dusad", "VISHU NAMDEV", "Madhusudan Singh Legha", "Hare Krishna Naik", "DHRUV CHAUHAN", "SHIVAM TIWARI", "PRIYANSHU THAKUR", "Samarth Rangar", "PRASHANT AWASTHI", "RISHABH NEGI", "Pratyush Bhalla", "TANISHK VERMA", "Nitin", "DEEPU", "Arpit", "Satyam Kumar", "SUJEET KUMAR YADAV", "PAWAN KUMAR SAH", "KARTIK DAGAR", "Aryan", "KANISH SHARMA", "HARSH RAJ SINGH", "Vivek Thakur", "RUDRAKSH SINGH", "Aditya Singh", "Vansh", "GOPAL", "Sankalp Choudhary", "Joysuriya Bhattacharjee", "ARYAN SINGH", "Anang Shashwat Tarun", "GARVIT", "ARPIT YADAV", "NAZIR UDDIN", "FAIZ MOHAMMAD", "ABDULLAH", "JITENDRA SINGH", "DILAWAR KHAN", "GULKESH", "IMRAN ALAM", "HASSAN HASAN", "AFTAB ALI", "MD MUSHFIQUE DANYAL", "MANABHANJAN MAHANANDA", "MUHAMMED YAZID A H", "SHAKEEB ARSALAN M P", "MOHAMMAD AHAMAD KHAN", "MD MASROOF ALAM", "GUFRAN KHAN", "NEERAJ", "SAHIL", "ATUL", "MANAS KUMAR JHA", "ANUJ SHAKYA", "VIKRAM SINGH", "SANDEEP", "SHREYASKOR BORGOHAIN", "VIKAS KUMAR GUPTA", "BIMAL GORAI", "PRASHANT KUMAR CHAUBEY", "SIDHARTH", "RAHUL SINGH", "HIMANSHU", "SHIV NARAYAN", "SANDEEP KUMAR", "ROHIT PANDEY", "SUBHAJIT DAS", "MD NASURALLAH", "SANDEEP YADAV", "SIMARJEET SINGH", "HIMANSHU SINGH TOMAR", "DEEPAK KUMAR", "HARSH YADAV", "PRATYUSH KUMAR SINGH", "GAUTAM RAWAT", "ADITYA SINGH", "KISHLEY ACHARYA", "TUSHAR YADAV", "VARUN KUMAR SINGH", "VANSH", "ADITYA JHA", "SHIVANG SHARMA", "GENIUS CHAUHAN", "VISHAL GUPTA", "ANSHUL DIXIT", "SATYAM KUMAR", "YASH RAJ", "RAJ KUMAR", "ABHIMANYU KELODIYA", "SUKEERAT SINGH", "HARMANDEEP SINGH", "ABHISHEK MANDAL", "NIKHIL KUMAR", "NACHIKETA SANASAM", "ABHINIT KUMAR", "DHRUV UPRETI", "KARTIK ROSE", "ANSH JOON", "MOHIT KUMAR SINGH", "ARYAN GAMBHIR", "SHRESTHA BHANDARI", "SAKSHAM DUBEY", "NAKUL", "SHIVANG YADAV", "KONADA MOHAN SRIVATSAV", "SUBHAM SINGH", "ANGAT BAKHLA", "DURGA SHANKER PANDEY", "HITENDRA PRATAP SINGH", "HIMANSHU YADAV", "ARYAN SHRIVASTAVA", "HIRA LAUR", "VANSH DABAS", "DAKSH BHATI", "HIMANSHU", "NEERAJ YADAV", "HARSHVARDHAN", "PARTH SINGH", "PRADEEP KUMAR", "PRAVESH KUMAR", "ANUJ RAWAT", "VISHAV VARDHAN SINGH RATHORE", "PRIYANSHU RAJ", "YASH RATHEE", "ANKIT KUMAR", "ANUBHAV", "RISHABH RANA", "RONAK SINGH", "KAPISH", "KUMAR ARYAN", "PRANAV BHATT", "UTTAM", "VATSAL VASHISHTH", "HARI OM", "MEHARSH BENSLA", "ARTHAV UPADHYAY", "JAI PRATAP SINGH", "ADITYA KUMAR YADAV", "SAURAV KUMAR", "RITIK", "ARYAN PRASAD", "SHUBHAM SIHAG", "MANISH KUMAR", "SHUBHAM KUMAR SAURABH", "DEV KUMAR GOPALA", "SACHIN KUMAR JHA", "YASH KUMAR RAI", "PIYUSH KUMAR", "YATHARTH SINGH BANSLA", "SHASHWAT KUMAR MISHRA", "RANJEET KUMAR", "TUSHAR DAGAR", "PRASHANT KUMAR", "HIMANSHU KUMAR", "AYUSH YADAV", "AYUSH RANJAN", "RAJVEER YADAV", "AAMIR JAVID", "SHRI KISHAN", "DANISH IQBAL", "KESHAV KUMAR JHA", "CHINMAY DIXIT", "MARUPH PARVEZ", "YASH NAGAL", "SURAJ", "ABU SHAMA NOOR", "ROHIT", "DIVYANSH SINGH", "MOHAMMAD SHAHRUKH KHAN", "ANAND", "WASIM AKRAM", "MOHAMMAD ALI", "NISHANT SINGH", "AZIM JAVED", "ZAYAAN KHURSHEED", "SALIM", "MOHD AFFAN", "ADHNAN V"];
+    <script>
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbykmQU7d-T7EhjOTqn5QxBckDPxAkwb81vT6RNg1n__zZx2XTY5mMX__XWJsNi5qIs/exec";
+        
+        const regimentalNumbers = [];
+        for(let i=1000; i<=1132; i++) regimentalNumbers.push(`DL2025SDAF128${i}`);
+        const extraRegs = ["DL2024SDAF1280964", "DL2024SDAF1280642", "DL2024SDAF1280643", "DL2024SDAF1280644", "DL2024SDAF1280645", "DL2024SDAF1280646", "DL2024SDAF1280647", "DL2024SDAF1280648", "DL2024SDAF1280649", "DL2024SDAF1280650", "DL2024SDAF1280651", "DL2024SDAF1280960", "DL2024SDAF1280961", "DL2024SDAF1280962", "DL2024SDAF1280963", "DL2024SDAF1280965", "DL2024SDAF1280966", "DL2024SDAF1280967", "DL2024SDAF1280968", "DL2024SDAF1280969", "DL2024SDAF1280970", "DL2024SDAF1280971", "DL2024SDAF1280972", "DL2024SDAF1280973", "DL2024SDAF1280975", "DL2024SDAF1280979", "DL2024SDAF1280974", "DL2024SDAF1280590", "DL2024SDAF1280591", "DL2024SDAF1280592", "DL2024SDAF1280593", "DL2024SDAF1280594", "DL2024SDAF1280595", "DL2024SDAF1280596", "DL2024SDAF1280597", "DL2024SDAF1280598", "DL2024SDAF1280599", "DL2024SDAF1280600", "DL2024SDAF1280601", "DL2024SDAF1280602", "DL2024SDAF1280603", "DL2024SDAF1280604", "DL2024SDAF1280605", "DL2024SDAF1280606", "DL2024SDAF1280607", "DL2024SDAF1280608", "DL2024SDAF1280609", "DL2024SDAF1280610", "DL2024SDAF1280611", "DL2024SDAF1280612", "DL2024SDAF1280613", "DL2024SDAF1280615", "DL2024SDAF1280616", "DL2024SDAF1280617", "DL2024SDAF1280618", "DL2024SDAF1280619", "DL2024SDAF1280620", "DL2024SDAF1280621", "DL2024SDAF1280622", "DL2024SDAF1280623", "DL2024SDAF1280624", "DL2024SDAF1280625", "DL2024SDAF1280626", "DL2024SDAF1280627", "DL2024SDAF1280629", "DL2024SDAF1280631", "DL2024SDAF1280632", "DL2024SDAF1280633", "DL2024SDAF1280634", "DL2024SDAF1280635", "DL2024SDAF1280636", "DL2024SDAF1280637", "DL2024SDAF1280638", "DL2024SDAF1280639", "DL2024SDAF1280640", "DL2024SDAF1280641", "DL2024SDAF1280643", "DL2024SDAF1280942", "DL2024SDAF1280943", "DL2024SDAF1280944", "DL2024SDAF1280945", "DL2024SDAF1280946", "DL2024SDAF1280947", "DL2024SDAF1280948", "DL2024SDAF1280949", "DL2024SDAF1280950", "DL2024SDAF1280951", "DL2024SDAF1280952", "DL2024SDAF1280953", "DL2024SDAF1280954", "DL2024SDAF1280955", "DL2024SDAF1280956", "DL2024SDAF1280957", "DL2024SDAF1280958", "DL2024SDAF1280959","DL2025SDAF1280984", "DL2025SDAF1280985", "DL2025SDAF1280986", "DL2025SDAF1280987", "DL2025SDAF1280988", "DL2025SDAF1280989", "DL2025SDAF1280990", "DL2025SDAF1280991", "DL2025SDAF1280992", "DL2025SDAF1280993", "DL2025SDAF1280994", "DL2025SDAF1280995", "DL2025SDAF1280996", "DL2025SDAF1280997", "DL2025SDAF1280998", "DL2025SDAF1280999"];
+        regimentalNumbers.push(...extraRegs);
+        const names = ["Milan Singh", "PIYUSH PARMAR", "SAURABH YADAV", "Kartik Saini", "RISHABH RAJA", "Amrinder Singh Grewal", "Aniket Raj", "Kartikay Singh Jagirdar", "ANUJ YADAV", "Anubhav Kr Singh", "ABHINANDAN KUMAR SINGH", "SHUBHAM SHARMA", "RAHUL CHAURSIA", "ADITYA SIROHI", "Sameer chauhan", "Prem Bhardwaj", "Ravada Pawan Kumar", "Abhishek Mishra", "HARSHVARDHAN CHHETRI", "AALOK KUMAR", "Rahul Singh Dusad", "VISHU NAMDEV", "Madhusudan Singh Legha", "Hare Krishna Naik", "DHRUV CHAUHAN", "SHIVAM TIWARI", "PRIYANSHU THAKUR", "Samarth Rangar", "PRASHANT AWASTHI", "RISHABH NEGI", "Pratyush Bhalla", "TANISHK VERMA", "Nitin", "DEEPU", "Arpit", "Satyam Kumar", "SUJEET KUMAR YADAV", "PAWAN KUMAR SAH", "KARTIK DAGAR", "Aryan", "KANISH SHARMA", "HARSH RAJ SINGH", "Vivek Thakur", "RUDRAKSH SINGH", "Aditya Singh", "Vansh", "GOPAL", "Sankalp Choudhary", "Joysuriya Bhattacharjee", "ARYAN SINGH", "Anang Shashwat Tarun", "GARVIT", "ARPIT YADAV", "NAZIR UDDIN", "FAIZ MOHAMMAD", "ABDULLAH", "JITENDRA SINGH", "DILAWAR KHAN", "GULKESH", "IMRAN ALAM", "HASSAN HASAN", "AFTAB ALI", "MD MUSHFIQUE DANYAL", "MANABHANJAN MAHANANDA", "MUHAMMED YAZID A H", "SHAKEEB ARSALAN M P", "MOHAMMAD AHAMAD KHAN", "MD MASROOF ALAM", "GUFRAN KHAN", "NEERAJ", "SAHIL", "ATUL", "MANAS KUMAR JHA", "ANUJ SHAKYA", "VIKRAM SINGH", "SANDEEP", "SHREYASKOR BORGOHAIN", "VIKAS KUMAR GUPTA", "BIMAL GORAI", "PRASHANT KUMAR CHAUBEY", "SIDHARTH", "RAHUL SINGH", "HIMANSHU", "SHIV NARAYAN", "SANDEEP KUMAR", "ROHIT PANDEY", "SUBHAJIT DAS", "MD NASURALLAH", "SANDEEP YADAV", "SIMARJEET SINGH", "HIMANSHU SINGH TOMAR", "DEEPAK KUMAR", "HARSH YADAV", "PRATYUSH KUMAR SINGH", "GAUTAM RAWAT", "ADITYA SINGH", "KISHLEY ACHARYA", "TUSHAR YADAV", "VARUN KUMAR SINGH", "VANSH", "ADITYA JHA", "SHIVANG SHARMA", "GENIUS CHAUHAN", "VISHAL GUPTA", "ANSHUL DIXIT", "SATYAM KUMAR", "YASH RAJ", "RAJ KUMAR", "ABHIMANYU KELODIYA", "SUKEERAT SINGH", "HARMANDEEP SINGH", "ABHISHEK MANDAL", "NIKHIL KUMAR", "NACHIKETA SANASAM", "ABHINIT KUMAR", "DHRUV UPRETI", "KARTIK ROSE", "ANSH JOON", "MOHIT KUMAR SINGH", "ARYAN GAMBHIR", "SHRESTHA BHANDARI", "SAKSHAM DUBEY", "NAKUL", "SHIVANG YADAV", "KONADA MOHAN SRIVATSAV", "SUBHAM SINGH", "ANGAT BAKHLA", "DURGA SHANKER PANDEY", "HITENDRA PRATAP SINGH", "HIMANSHU YADAV", "ARYAN SHRIVASTAVA", "HIRA LAUR", "VANSH DABAS", "DAKSH BHATI", "HIMANSHU", "NEERAJ YADAV", "HARSHVARDHAN", "PARTH SINGH", "PRADEEP KUMAR", "PRAVESH KUMAR", "ANUJ RAWAT", "VISHAV VARDHAN SINGH RATHORE", "PRIYANSHU RAJ", "YASH RATHEE", "ANKIT KUMAR", "ANUBHAV", "RISHABH RANA", "RONAK SINGH", "KAPISH", "KUMAR ARYAN", "PRANAV BHATT", "UTTAM", "VATSAL VASHISHTH", "HARI OM", "MEHARSH BENSLA", "ARTHAV UPADHYAY", "JAI PRATAP SINGH", "ADITYA KUMAR YADAV", "SAURAV KUMAR", "RITIK", "ARYAN PRASAD", "SHUBHAM SIHAG", "MANISH KUMAR", "SHUBHAM KUMAR SAURABH", "DEV KUMAR GOPALA", "SACHIN KUMAR JHA", "YASH KUMAR RAI", "PIYUSH KUMAR", "YATHARTH SINGH BANSLA", "SHASHWAT KUMAR MISHRA", "RANJEET KUMAR", "TUSHAR DAGAR", "PRASHANT KUMAR", "HIMANSHU KUMAR", "AYUSH YADAV", "AYUSH RANJAN", "RAJVEER YADAV", "AAMIR JAVID", "SHRI KISHAN", "DANISH IQBAL", "KESHAV KUMAR JHA", "CHINMAY DIXIT", "MARUPH PARVEZ", "YASH NAGAL", "SURAJ", "ABU SHAMA NOOR", "ROHIT", "DIVYANSH SINGH", "MOHAMMAD SHAHRUKH KHAN", "ANAND", "WASIM AKRAM", "MOHAMMAD ALI", "NISHANT SINGH", "AZIM JAVED", "ZAYAAN KHURSHEED", "SALIM", "MOHD AFFAN", "ADHNAN V"];
 
-    const regDL = document.getElementById('regList'); regimentalNumbers.forEach(v => { let o = document.createElement('option'); o.value = v; regDL.appendChild(o); });
-    const nameDL = document.getElementById('nameList'); names.forEach(v => { let o = document.createElement('option'); o.value = v; nameDL.appendChild(o); });
+        window.onload = function() {
+            const regDL = document.getElementById('regList'); 
+            if(regDL) regimentalNumbers.forEach(v => { let o = document.createElement('option'); o.value = v; regDL.appendChild(o); });
+            const nameDL = document.getElementById('nameList'); 
+            if(nameDL) names.forEach(v => { let o = document.createElement('option'); o.value = v; nameDL.appendChild(o); });
 
-    function switchTab(t) {
-        document.querySelectorAll('.tab-content').forEach(e => e.classList.remove('active'));
-        document.querySelectorAll('.tab-button').forEach(e => e.classList.remove('active'));
-        document.getElementById(t).classList.add('active');
-        document.querySelector(`button[onclick="switchTab('${t}')"]`).classList.add('active');
-    }
+            fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'get_init_data' }) })
+            .then(res => res.json()).then(data => {
+                if(data.status === 'success') {
+                    document.getElementById('marqueeText').innerText = data.marquee || "VAYUSETU Portal Online";
+                    document.getElementById('displayDate').innerText = data.sysDate || "...";
+                    const list = document.getElementById('dynamicEventGrid');
+                    const pdfSel = document.getElementById('pdfTarget');
+                    list.innerHTML = "";
+                    while(pdfSel.options.length > 1) { pdfSel.remove(1); } 
+                    data.events.forEach(evt => {
+                        let eventName = (typeof evt === 'object' && evt !== null) ? evt.name : String(evt);
+                        let isExtra = (typeof evt === 'object' && evt !== null) ? evt.reqExtra : false;
+                        let card = document.createElement('div');
+                        card.style.cssText = "padding:15px; border:1px solid #ddd; border-radius:8px; text-align:center; cursor:pointer; font-weight:600; color:#555; transition:0.2s;";
+                        card.innerText = eventName;
+                        card.dataset.name = eventName;
+                        card.dataset.reqExtra = isExtra;
+                        card.onmouseover = function(){ this.style.borderColor = "#00205b"; this.style.background = "#f0f9ff"; };
+                        card.onmouseout = function(){ if(!this.classList.contains('selected')) { this.style.borderColor = "#ddd"; this.style.background = "transparent"; } };
+                        card.onclick = function() { 
+                            this.classList.toggle('selected');
+                            if(this.classList.contains('selected')) {
+                                this.style.background = "#00205b"; this.style.color = "white"; this.style.borderColor = "#00205b";
+                            } else {
+                                this.style.background = "transparent"; this.style.color = "#555"; this.style.borderColor = "#ddd";
+                            }
+                            checkExtraDetails(); 
+                        };
+                        list.appendChild(card);
+                        let opt = document.createElement('option'); opt.value = eventName; opt.innerText = eventName; pdfSel.appendChild(opt);
+                    });
+                }
+            }).catch(e => { document.getElementById('marqueeText').innerText = "System Offline"; });
+        };
 
-    // --- EVENTS & UI LOGIC ---
-    window.onload = function() {
-        fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'get_init_data' }) })
-        .then(res => res.json())
-        .then(data => {
-            if(data.status === 'success') {
-                document.getElementById('marqueeText').innerText = data.marquee || "Welcome to VAYUSETU";
-                document.getElementById('displayDate').value = data.sysDate || "Loading...";
-                
-                const list = document.getElementById('dynamicEventGrid');
-                const pdfSel = document.getElementById('pdfTarget');
-                list.innerHTML = "";
-                while(pdfSel.options.length > 1) { pdfSel.remove(1); } 
+        function switchTab(viewId, btn) {
+            document.querySelectorAll('.panel-view').forEach(el => el.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            btn.classList.add('active');
+        }
 
-                data.events.forEach(evt => {
-                    // SAFE HANDLING: Works with both "Strings" and "Objects"
-                    let eventName = "";
-                    let isExtra = false;
-                    
-                    if (typeof evt === 'object' && evt !== null) {
-                        eventName = evt.name;
-                        isExtra = evt.reqExtra;
-                    } else {
-                        eventName = String(evt);
-                    }
+        function unlockAdmin(btn) { 
+            if(prompt("Enter PIN:") === "2347") { 
+                switchTab('admin', document.getElementById('adminNav'));
+            } 
+        }
 
-                    let card = document.createElement('div');
-                    card.className = 'event-card';
-                    card.innerText = eventName;
-                    card.dataset.name = eventName;
-                    card.dataset.reqExtra = isExtra;
-                    
-                    card.onclick = function() { 
-                        this.classList.toggle('selected');
-                        checkExtraDetails(); 
-                    };
-                    list.appendChild(card);
+        function checkExtraDetails() {
+            const selectedCards = document.querySelectorAll('.selected');
+            const extraDiv = document.getElementById('extraDetailsArea');
+            const promptText = document.getElementById('extraDetailsPrompt');
+            let needingExtra = [];
+            selectedCards.forEach(c => { if (c.dataset.reqExtra === "true" || c.dataset.reqExtra === true) needingExtra.push(c.dataset.name); });
+            if (needingExtra.length > 0) { extraDiv.style.display = 'block'; promptText.innerText = "Information Required for " + needingExtra.join(", ") + ":"; } 
+            else { extraDiv.style.display = 'none'; document.getElementById('extraDetailsInput').value = ""; }
+        }
 
-                    let opt = document.createElement('option');
-                    opt.value = eventName; opt.innerText = eventName;
-                    pdfSel.appendChild(opt);
+        function checkWordCount(field) {
+            let words = field.value.trim().split(/\s+/).length;
+            if(field.value.trim() === "") words = 0;
+            document.getElementById('wordCountDisplay').innerText = words + "/100";
+            if (words > 100) field.style.borderColor = "red"; else field.style.borderColor = "#eee";
+        }
+
+        function submitData(type) {
+            let payload = {};
+            if(type === 'attendance') {
+                payload.action = 'submit_attendance';
+                payload.regimentalNo = document.getElementById('regAtt').value;
+                payload.rank = document.getElementById('rankAtt').value;
+                payload.name = document.getElementById('nameAtt').value;
+                payload.year = document.getElementById('yearAtt').value;
+                payload.squadron = document.getElementById('squadAtt').value;
+                payload.attDate = document.getElementById('displayDate').innerText;
+                if(!payload.regimentalNo || !payload.name) return alert("Please fill required fields.");
+            } else {
+                payload.action = 'submit_event';
+                payload.regimentalNo = document.getElementById('regEvt').value;
+                payload.rank = document.getElementById('rankEvt').value;
+                payload.name = document.getElementById('nameEvt').value;
+                payload.year = document.getElementById('yearEvt').value;
+                payload.squadron = document.getElementById('squadEvt').value;
+                const selectedCards = document.querySelectorAll('.selected');
+                const eventsData = [];
+                selectedCards.forEach(c => {
+                    let evtObj = { name: c.dataset.name, extra: "" };
+                    if (c.dataset.reqExtra === "true" || c.dataset.reqExtra === true) evtObj.extra = document.getElementById('extraDetailsInput').value;
+                    eventsData.push(evtObj);
                 });
+                payload.events = eventsData;
+                payload.otherEvent = document.getElementById('otherEvent').value;
+                if(payload.events.length === 0 && !payload.otherEvent) return alert("Please select an event.");
+                if(!payload.regimentalNo) return alert("Please enter Regimental No.");
             }
-        })
-        .catch(e => {
-            document.getElementById('marqueeText').innerText = "System Offline - Check Connection";
-            document.getElementById('displayDate').value = "Offline";
-        });
-    };
-
-    function checkExtraDetails() {
-        const selectedCards = document.querySelectorAll('.event-card.selected');
-        const extraDiv = document.getElementById('extraDetailsArea');
-        const promptText = document.getElementById('extraDetailsPrompt');
-        
-        let needingExtra = [];
-        selectedCards.forEach(c => {
-            // Check strings "true" or boolean true
-            if (c.dataset.reqExtra === "true" || c.dataset.reqExtra === true) needingExtra.push(c.dataset.name);
-        });
-
-        if (needingExtra.length > 0) {
-            extraDiv.style.display = 'block';
-            promptText.innerText = "For: " + needingExtra.join(", ");
-        } else {
-            extraDiv.style.display = 'none';
-            document.getElementById('extraDetailsInput').value = "";
-        }
-    }
-
-    function checkWordCount(field) {
-        let words = field.value.trim().split(/\s+/).length;
-        if(field.value.trim() === "") words = 0;
-        document.getElementById('wordCountDisplay').innerText = words + "/100 words";
-        if (words > 100) field.style.borderColor = "red";
-        else field.style.borderColor = "#e0e0e0";
-    }
-
-    function submitData(type) {
-        let payload = {};
-        if(type === 'attendance') {
-            payload.action = 'submit_attendance';
-            payload.regimentalNo = document.getElementById('regAtt').value;
-            payload.rank = document.getElementById('rankAtt').value;
-            payload.name = document.getElementById('nameAtt').value;
-            payload.year = document.getElementById('yearAtt').value;
-            payload.squadron = document.getElementById('squadAtt').value;
-            payload.attDate = document.getElementById('displayDate').value;
-            if(!payload.regimentalNo || !payload.name) return alert("Fill all details");
-        } else {
-            payload.action = 'submit_event';
-            payload.regimentalNo = document.getElementById('regEvt').value;
-            payload.rank = document.getElementById('rankEvt').value;
-            payload.name = document.getElementById('nameEvt').value;
-            payload.year = document.getElementById('yearEvt').value;
-            payload.squadron = document.getElementById('squadEvt').value;
-            
-            const selectedCards = document.querySelectorAll('.event-card.selected');
-            const eventsData = [];
-            
-            selectedCards.forEach(c => {
-                let evtObj = { name: c.dataset.name, extra: "" };
-                // Check if this specific card requires extra info
-                if (c.dataset.reqExtra === "true" || c.dataset.reqExtra === true) {
-                    evtObj.extra = document.getElementById('extraDetailsInput').value;
-                }
-                eventsData.push(evtObj);
+            const btn = event.target;
+            btn.innerText = "Transmitting...";
+            fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) }).then(res => res.json()).then(data => {
+                if(data.status === 'success') {
+                    alert(data.message);
+                    if(type === 'event') {
+                        document.querySelectorAll('.selected').forEach(c => {
+                            c.classList.remove('selected');
+                            c.style.background = "transparent"; c.style.color = "#555"; c.style.borderColor = "#ddd";
+                        });
+                        document.getElementById('otherEvent').value = "";
+                        document.getElementById('extraDetailsInput').value = "";
+                        document.getElementById('extraDetailsArea').style.display = 'none';
+                    }
+                } else { alert("Error: " + data.message); }
+                btn.innerText = (type === 'attendance') ? "MARK PRESENT" : "REGISTER NOW";
             });
-
-            payload.events = eventsData;
-            payload.otherEvent = document.getElementById('otherEvent').value;
-            
-            if(payload.events.length === 0 && !payload.otherEvent) return alert("Select an event or type a request");
-            if(document.getElementById('extraDetailsInput').value.split(/\s+/).length > 100) return alert("Extra details must be under 100 words.");
-            if(!payload.regimentalNo) return alert("Fill personal details");
         }
-
-        const btn = event.target;
-        btn.innerText = "Transmitting...";
         
-        fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify(payload) })
-        .then(res => res.json())
-        .then(data => {
-            if(data.status === 'success') {
-                document.getElementById('modalMsg').innerText = data.message;
-                document.getElementById('successModal').style.display = 'flex';
-                if(type === 'event') {
-                    document.querySelectorAll('.event-card').forEach(c => c.classList.remove('selected'));
-                    document.getElementById('otherEvent').value = "";
-                    document.getElementById('extraDetailsInput').value = "";
-                    document.getElementById('extraDetailsArea').style.display = 'none';
-                }
-            } else {
-                alert("Error: " + data.message);
-            }
-            btn.innerText = (type === 'attendance') ? "MARK PRESENT" : "REGISTER";
-        });
-    }
-
-    function unlockAdmin() { if(prompt("Admin PIN:") === "2347") { document.getElementById('adminPanel').style.display = 'block'; window.scrollTo(0, document.body.scrollHeight); } }
-    function updateConfig(type) {
-        let val = (type === 'marquee') ? document.getElementById('newMarquee').value : document.getElementById('adminDateInput').value;
-        if(!val) return;
-        fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'update_config', type: type, value: val, pin: "2347" }) }).then(r => r.json()).then(d => { alert(d.message); if(type === 'date') document.getElementById('displayDate').value = val; if(type === 'marquee') document.getElementById('marqueeText').innerText = val; });
-    }
-    function manageEvent(type) {
-        const name = (type === 'add') ? document.getElementById('newEventName').value : document.getElementById('delEventName').value;
-        const reqExtra = document.getElementById('reqExtraCheck').checked;
-        if(!name) return;
-        fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'manage_event', type: type, eventName: name, reqExtra: reqExtra, pin: "2347" }) }).then(r => r.json()).then(d => { alert(d.message); location.reload(); });
-    }
-    function getPDF() {
-        const target = document.getElementById('pdfTarget').value;
-        const btn = document.querySelector('button[onclick="getPDF()"]');
-        const originalText = btn.innerText;
+        function updateConfig(type) {
+            let val = (type === 'marquee') ? document.getElementById('newMarquee').value : document.getElementById('adminDateInput').value;
+            if(!val) return;
+            fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'update_config', type: type, value: val, pin: "2347" }) }).then(r => r.json()).then(d => { alert(d.message); if(type === 'date') document.getElementById('displayDate').innerText = val; if(type === 'marquee') document.getElementById('marqueeText').innerText = val; });
+        }
         
-        // 1. Show Loading State
-        btn.innerText = "Generating...";
-        btn.disabled = true;
-
-        fetch(SCRIPT_URL, { 
-            method: 'POST', 
-            body: JSON.stringify({ action: 'get_pdf', target: target, pin: "2347" }) 
-        })
-        .then(r => r.json())
-        .then(d => { 
-            // 2. Reset Button
-            btn.innerText = originalText;
-            btn.disabled = false;
-
-            if(d.status === 'success') {
-                // --- MOBILE DOWNLOAD FIX ---
-                // Instead of window.open, we create a hidden link and click it.
-                // This tells mobile browsers "Download this file" instead of "Open this app".
-                let a = document.createElement('a');
-                a.href = d.url;
-                a.download = target + "_Report.pdf"; // Suggests a filename
-                a.target = '_blank';
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-            } else {
-                alert(d.message); 
-            }
-        })
-        .catch(error => {
-            btn.innerText = originalText;
-            btn.disabled = false;
-            alert("Network Error. Please try again.");
-        });
-    }
-</script>
+        function manageEvent(type) {
+            const name = (type === 'add') ? document.getElementById('newEventName').value : document.getElementById('delEventName').value;
+            const reqExtra = document.getElementById('reqExtraCheck').checked;
+            if(!name) return;
+            fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'manage_event', type: type, eventName: name, reqExtra: reqExtra, pin: "2347" }) }).then(r => r.json()).then(d => { alert(d.message); location.reload(); });
+        }
+        
+        function getPDF() {
+            const target = document.getElementById('pdfTarget').value;
+            const btn = document.activeElement;
+            btn.innerText = "...";
+            fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'get_pdf', target: target, pin: "2347" }) }).then(r => r.json()).then(d => { 
+                btn.innerText = "SEE DETAILS 📋";
+                if(d.status === 'success') {
+                    let a = document.createElement('a'); a.href = d.url; a.target = '_blank'; document.body.appendChild(a); a.click(); document.body.removeChild(a);
+                } else { alert(d.message); }
+            }).catch(error => { btn.innerText = "SEE DETAILS 📋"; alert("Error"); });
+        }
+    </script>
 </body>
 </html>
-
-
-
-
-
