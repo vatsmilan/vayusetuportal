@@ -512,7 +512,7 @@ function formatToDDMMYYYY(dateStr) {
         }
 
         function unlockAdmin() { 
-            if(prompt("Enter PIN:") === "122001") { 
+            if(prompt("Enter PIN:") === "Athrva@122001") { 
                 // Show hidden nav item on desktop
                 const adminNav = document.getElementById('adminNav');
                 adminNav.style.display = 'flex';
@@ -592,7 +592,7 @@ function formatToDDMMYYYY(dateStr) {
     let val = (type === 'marquee') ? document.getElementById('newMarquee').value : document.getElementById('adminDateInput').value;
     if(!val) return;
     
-    fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'update_config', type: type, value: val, pin: "122001" }) })
+    fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'update_config', type: type, value: val, pin: "Athrva@122001" }) })
     .then(r => r.json())
     .then(d => { 
         alert(d.message); 
@@ -606,14 +606,14 @@ function formatToDDMMYYYY(dateStr) {
             const name = (type === 'add') ? document.getElementById('newEventName').value : document.getElementById('delEventName').value;
             const reqExtra = document.getElementById('reqExtraCheck').checked;
             if(!name) return;
-            fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'manage_event', type: type, eventName: name, reqExtra: reqExtra, pin: "122001" }) }).then(r => r.json()).then(d => { alert(d.message); location.reload(); });
+            fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'manage_event', type: type, eventName: name, reqExtra: reqExtra, pin: "Athrva@122001" }) }).then(r => r.json()).then(d => { alert(d.message); location.reload(); });
         }
         
         function getPDF() {
             const target = document.getElementById('pdfTarget').value;
             const btn = document.activeElement;
             btn.innerText = "...";
-            fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'get_pdf', target: target, pin: "122001" }) }).then(r => r.json()).then(d => { 
+            fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'get_pdf', target: target, pin: "Athrva@122001" }) }).then(r => r.json()).then(d => { 
                 btn.innerText = "SEE DETAILS 📋";
                 if(d.status === 'success') {
                     let a = document.createElement('a'); a.href = d.url; a.target = '_blank'; document.body.appendChild(a); a.click(); document.body.removeChild(a);
@@ -623,6 +623,7 @@ function formatToDDMMYYYY(dateStr) {
     </script>
 </body>
 </html>
+
 
 
 
