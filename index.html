@@ -8,30 +8,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Orbitron:wght@600;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* NCC Flag Colors */
             --ncc-red: #da291c;
             --ncc-dark-blue: #00205b;
             --ncc-light-blue: #7da1c4;
             --ncc-gold: #FFD700;
-            
-            /* UI Colors */
-            --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.2);
-            --card-bg: #ffffff;
             --text-dark: #1e293b;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
         body {
-            height: 100vh;
-            width: 100vw;
-            /* DIAGONAL NCC FLAG GRADIENT */
+            /* NCC Gradient Background */
             background: linear-gradient(135deg, var(--ncc-red), var(--ncc-dark-blue), var(--ncc-light-blue));
             background-size: 200% 200%;
             animation: gradientMove 15s ease infinite;
-            display: flex;
-            overflow: hidden;
+            min-height: 100vh;
+            color: var(--text-dark);
         }
 
         @keyframes gradientMove {
@@ -40,445 +33,402 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* --- SIDEBAR --- */
+        /* =========================================
+           DESKTOP LAYOUT (Default)
+           ========================================= */
+        .desktop-wrapper {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+        }
+
+        /* --- Sidebar (Desktop Only) --- */
         .sidebar {
             width: 320px;
-            background: rgba(0, 0, 0, 0.2); 
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
             border-right: 1px solid var(--glass-border);
             display: flex;
             flex-direction: column;
-            padding: 30px 20px;
+            padding: 30px 25px;
             flex-shrink: 0;
-            z-index: 10;
+            z-index: 20;
         }
 
         .brand-box {
             display: flex;
             align-items: center;
             gap: 15px;
-            padding-bottom: 35px;
+            padding-bottom: 30px;
             border-bottom: 1px solid var(--glass-border);
             margin-bottom: 30px;
-            overflow: visible;
         }
 
         .brand-logo { 
-            width: 55px; height: 55px; border-radius: 50%; 
+            width: 60px; height: 60px; border-radius: 50%; 
             border: 3px solid var(--ncc-gold); 
-            background: white;
-            padding: 2px;
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
-            flex-shrink: 0;
+            background: white; padding: 2px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
         }
         
-        .brand-text {
-            flex: 1;
-            overflow: visible;
-        }
-
         .brand-text h1 { 
             font-family: 'Chakra Petch', sans-serif;
-            font-size: 2.2rem; 
-            font-weight: 800; 
-            background: linear-gradient(to right, var(--ncc-gold), #ffffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0px 0px 10px rgba(255, 215, 0, 0.5);
-            line-height: 1;
-            letter-spacing: 3px;
-            margin-bottom: 5px;
-            white-space: nowrap;
+            font-size: 2.4rem; color: white; line-height: 1;
+            background: linear-gradient(to bottom, #fff, var(--ncc-gold));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));
+            margin: 0; padding-right: 5px;
         }
         .brand-text span { 
-            font-size: 0.8rem; 
-            color: var(--ncc-gold); 
-            letter-spacing: 2px; 
-            font-weight: 600;
-            display: block;
-            margin-left: 4px;
+            font-size: 0.9rem; color: var(--ncc-gold); letter-spacing: 3px; 
+            font-weight: 700; text-transform: uppercase; display: block; margin-top: 5px;
         }
 
         .nav-links { flex: 1; display: flex; flex-direction: column; gap: 12px; }
 
         .nav-item {
-            padding: 16px 20px;
-            border-radius: 12px;
-            cursor: pointer;
-            color: rgba(255,255,255,0.9);
-            font-weight: 600;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border: 1px solid transparent;
+            padding: 16px 20px; border-radius: 12px; cursor: pointer;
+            color: rgba(255,255,255,0.9); font-weight: 600; transition: all 0.3s;
+            display: flex; align-items: center; gap: 15px; border: 1px solid transparent;
         }
-
         .nav-item:hover { background: rgba(255,255,255,0.15); transform: translateX(5px); }
-        
-        .nav-item.active { 
-            background: white; 
-            color: var(--ncc-dark-blue); 
-            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
-            font-weight: 800;
-        }
+        .nav-item.active { background: white; color: var(--ncc-dark-blue); box-shadow: 0 5px 20px rgba(0,0,0,0.3); font-weight: 800; }
 
-        /* --- FOOTER: OVAL HIGHLIGHT --- */
-        .footer-credit {
-            margin-top: auto;
-            text-align: center;
-            font-size: 0.8rem;
-            color: white;
-            padding: 12px 15px;
-            /* Transparent Background Highlight */
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50px; /* Makes it an oval/pill shape */
-            cursor: pointer;
-            transition: 0.3s;
-            backdrop-filter: blur(5px);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        .sidebar-footer {
+            margin-top: auto; text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.8);
+            padding: 10px; border-radius: 50px; background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2); cursor: pointer; transition: 0.3s;
         }
-        .footer-credit:hover {
-            background: rgba(255, 255, 255, 0.25);
-            transform: translateY(-2px);
-        }
+        .sidebar-footer:hover { background: rgba(255,255,255,0.3); }
 
-        /* --- MAIN AREA --- */
+        /* --- Main Content (Desktop) --- */
         .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            position: relative;
+            flex: 1; display: flex; flex-direction: column; position: relative;
         }
 
-        .top-deco {
-            height: 5px;
-            background: linear-gradient(90deg, #FF9933, #FFFFFF, #138808);
-            width: 100%;
-        }
+        .top-deco { height: 6px; background: linear-gradient(90deg, #FF9933, #FFFFFF, #138808); width: 100%; z-index: 5; }
 
         .marquee-bar {
-            background: rgba(255,255,255,0.95);
-            padding: 8px 20px;
-            color: var(--ncc-dark-blue);
-            font-weight: 700;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: rgba(255,255,255,0.95); padding: 10px 20px;
+            color: var(--ncc-dark-blue); font-weight: 700; font-size: 0.95rem;
+            display: flex; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); z-index: 4;
         }
         .marquee-wrapper { flex: 1; overflow: hidden; white-space: nowrap; }
         .marquee-text { display: inline-block; animation: scroll 20s linear infinite; }
         @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
-        .dashboard-container {
-            flex: 1;
-            padding: 30px;
-            overflow-y: auto;
-        }
+        .dashboard-container { flex: 1; padding: 40px; overflow-y: auto; }
 
+        /* =========================================
+           MOBILE ELEMENTS (Hidden on Desktop)
+           ========================================= */
+        .mobile-header { display: none; }
+        .mobile-tabs { display: none; }
+        .mobile-footer { display: none; }
+
+        /* =========================================
+           SHARED FORM STYLES
+           ========================================= */
         .panel-view { display: none; animation: slideIn 0.4s ease; }
         .panel-view.active { display: block; }
-        @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
         .form-card {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-            max-width: 900px;
-            margin: 0 auto;
-            border-top: 5px solid var(--ncc-red);
+            background: white; padding: 45px; border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            max-width: 900px; margin: 0 auto;
+            border-top: 6px solid var(--ncc-red);
         }
 
-        .section-title {
-            font-size: 1.8rem;
-            color: var(--ncc-dark-blue);
-            font-weight: 800;
-            margin-bottom: 5px;
-            font-family: 'Orbitron', sans-serif;
-        }
-        .section-desc { color: #777; margin-bottom: 30px; font-size: 0.9rem; }
+        .section-title { font-size: 2rem; color: var(--ncc-dark-blue); font-weight: 800; margin-bottom: 5px; font-family: 'Poppins', sans-serif; }
+        .section-desc { color: #666; margin-bottom: 35px; font-size: 0.95rem; }
 
         .input-group { margin-bottom: 25px; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         
-        label { 
-            display: block; 
-            font-size: 0.8rem; 
-            font-weight: 700; 
-            color: #555; 
-            margin-bottom: 8px; 
-            text-transform: uppercase; 
-            letter-spacing: 0.5px;
-        }
+        label { display: block; font-size: 0.85rem; font-weight: 700; color: #444; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
 
         input, select, textarea {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #eee;
-            border-radius: 10px;
-            font-size: 1rem;
-            color: var(--text-dark);
-            background: #f9fafb;
-            transition: 0.2s;
+            width: 100%; padding: 16px; border: 2px solid #e2e8f0; border-radius: 12px;
+            font-size: 1rem; color: var(--text-dark); background: #f8fafc; transition: 0.2s;
         }
-
-        input:focus, select:focus, textarea:focus {
-            outline: none;
-            border-color: var(--ncc-dark-blue);
-            background: white;
-            box-shadow: 0 0 0 4px rgba(0, 32, 91, 0.1);
-        }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--ncc-dark-blue); background: white; box-shadow: 0 0 0 4px rgba(0, 32, 91, 0.15); }
 
         .date-badge {
-            background: #eef2ff;
-            color: var(--ncc-dark-blue);
-            padding: 12px;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: 700;
-            border: 1px dashed var(--ncc-dark-blue);
-            margin-bottom: 25px;
+            background: #f0fdf4; color: #15803d; padding: 15px; border-radius: 12px;
+            text-align: center; font-weight: 700; border: 1px dashed #15803d; margin-bottom: 30px; font-size: 1.1rem;
         }
 
         .btn {
-            width: 100%;
-            padding: 16px;
-            border-radius: 10px;
-            border: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: transform 0.2s, box-shadow 0.2s;
-            font-family: 'Orbitron', sans-serif;
+            width: 100%; padding: 18px; border-radius: 12px; border: none; font-weight: 800;
+            font-size: 1.1rem; cursor: pointer; text-transform: uppercase; letter-spacing: 1px;
+            transition: transform 0.2s, box-shadow 0.2s; font-family: 'Orbitron', sans-serif;
         }
-        
-        .btn-primary { 
-            background: linear-gradient(135deg, var(--ncc-dark-blue), #1e3a8a); 
-            color: white; 
-            box-shadow: 0 8px 20px rgba(0, 32, 91, 0.3);
-        }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(0, 32, 91, 0.4); }
+        .btn-primary { background: linear-gradient(135deg, var(--ncc-dark-blue), #1e3a8a); color: white; box-shadow: 0 10px 25px rgba(0, 32, 91, 0.3); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0, 32, 91, 0.4); }
+        .btn-accent { background: linear-gradient(135deg, var(--ncc-red), #b91c1c); color: white; box-shadow: 0 10px 25px rgba(218, 41, 28, 0.3); }
+        .btn-accent:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(218, 41, 28, 0.4); }
 
-        .btn-accent {
-            background: linear-gradient(135deg, var(--ncc-red), #b91c1c);
-            color: white;
-            box-shadow: 0 8px 20px rgba(218, 41, 28, 0.3);
-        }
-        .btn-accent:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(218, 41, 28, 0.4); }
+        .checkbox-row { display: flex; align-items: center; margin-bottom: 15px; margin-top: 5px; }
+        .checkbox-row input { width: 20px; height: 20px; margin: 0 10px 0 0; cursor: pointer; }
+        .checkbox-row label { margin: 0; cursor: pointer; text-transform: none; font-size: 0.95rem; }
 
-        .checkbox-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
-            gap: 10px;
-            margin-bottom: 10px;
-            cursor: pointer;
-        }
-        .checkbox-wrapper input { width: auto; margin: 0; }
-        .checkbox-wrapper span { font-size: 0.9rem; font-weight: 600; color: #555; }
-
+        /* Admin Styles */
         .admin-row { display: flex; gap: 15px; margin-bottom: 15px; align-items: flex-end; }
-        .btn-sm { padding: 12px 20px; font-size: 0.9rem; width: auto; }
-        .btn-gray { background: #475569; color: white; }
+        .btn-sm { padding: 12px 25px; font-size: 0.9rem; width: auto; border-radius: 8px; }
+        .btn-gray { background: #475569; color: white; cursor: pointer; border: none; font-weight: 600; }
 
-        @media (max-width: 768px) {
-            body { flex-direction: column; overflow: auto; height: auto; }
-            .sidebar { width: 100%; flex-direction: row; justify-content: space-between; align-items: center; padding: 15px; background: rgba(0,0,0,0.8); }
-            .brand-box { margin: 0; padding: 0; border: none; }
-            .brand-text h1 { font-size: 1.5rem; }
-            .nav-links { flex-direction: row; flex: none; }
-            .nav-item span { display: none; }
-            .nav-item { padding: 10px; }
-            .footer-credit { display: none; }
-            .dashboard-container { padding: 15px; }
+        /* =========================================
+           MOBILE RESPONSIVENESS (The Magic Switch)
+           ========================================= */
+        @media (max-width: 900px) {
+            body { overflow-y: auto; display: block; padding-bottom: 40px; }
+            
+            .desktop-wrapper { display: block; height: auto; overflow: visible; }
+            .sidebar { display: none; } /* Hide Desktop Sidebar */
+            
+            .main-content { height: auto; overflow: visible; }
+            .dashboard-container { padding: 20px; overflow: visible; }
+            
+            .top-deco { position: fixed; top: 0; z-index: 100; }
+            .marquee-bar { margin-top: 6px; } /* Space for deco */
+
+            /* Mobile Header */
+            .mobile-header {
+                display: flex; flex-direction: column; align-items: center; justify-content: center;
+                text-align: center; padding: 20px 0 10px 0;
+            }
+            .mobile-logo { width: 70px; height: 70px; border-radius: 50%; border: 3px solid var(--ncc-gold); background: white; padding: 3px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); margin-bottom: 10px; }
+            .mobile-title { font-family: 'Chakra Petch', sans-serif; font-size: 2rem; font-weight: 800; color: white; text-shadow: 0 2px 5px rgba(0,0,0,0.5); line-height: 1; }
+            .mobile-sub { color: var(--ncc-gold); font-size: 0.8rem; font-weight: 700; letter-spacing: 2px; margin-top: 5px; }
+
+            /* Mobile Tabs (Pills) */
+            .mobile-tabs {
+                display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; padding: 0 20px;
+            }
+            .tab-pill {
+                flex: 1; padding: 12px; text-align: center; background: rgba(255,255,255,0.2);
+                border: 1px solid rgba(255,255,255,0.3); color: white; border-radius: 50px;
+                font-weight: 700; cursor: pointer; transition: 0.2s; max-width: 150px;
+            }
+            .tab-pill.active { background: white; color: var(--ncc-dark-blue); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+
+            /* Adjust Content */
+            .form-card { padding: 25px; border-radius: 15px; }
             .grid-2 { grid-template-columns: 1fr; }
-            .form-card { padding: 25px; }
+            .section-title { font-size: 1.5rem; }
+
+            /* Mobile Footer (Admin Trigger) */
+            .mobile-footer {
+                display: block; text-align: center; margin-top: 30px;
+                font-size: 0.8rem; color: rgba(255,255,255,0.8);
+            }
+            .dev-badge {
+                display: inline-block; padding: 8px 20px; background: rgba(0,0,0,0.3);
+                border-radius: 50px; border: 1px solid rgba(255,255,255,0.2); cursor: pointer;
+            }
         }
     </style>
 </head>
 <body>
 
-    <div class="sidebar">
-        <div class="brand-box">
-            <img src="./1das.jpg" class="brand-logo" alt="Logo">
-            <div class="brand-text">
-                <h1>VAYUSETU</h1>
-                <span>PORTAL</span>
-            </div>
-        </div>
-
-        <div class="nav-links">
-            <div class="nav-item active" onclick="switchTab('attendance', this)">
-                <span>📅</span> <span>ATTENDANCE</span>
-            </div>
-            <div class="nav-item" onclick="switchTab('events', this)">
-                <span>🚀</span> <span>EVENTS</span>
-            </div>
-            <div class="nav-item" id="adminNav" onclick="unlockAdmin(this)" style="display: none;">
-                <span>🔒</span> <span>ADMIN</span>
-            </div>
-        </div>
-
-        <div class="footer-credit" ondblclick="unlockAdmin()">
-            Developed By<br><strong>Flt Cdt Milan Singh</strong>
-        </div>
-    </div>
-
-    <div class="main-content">
-        <div class="top-deco"></div>
+    <div class="desktop-wrapper">
         
-        <div class="marquee-bar">
-            <div style="margin-right:20px; color:#da291c;">NOTICE:</div>
-            <div class="marquee-wrapper">
-                <span class="marquee-text" id="marqueeText">Welcome to VayuSetu Portal...</span>
+        <div class="sidebar">
+            <div class="brand-box">
+                <img src="./1das.jpg" class="brand-logo" alt="Logo">
+                <div class="brand-text">
+                    <h1>VAYUSETU</h1>
+                    <span>PORTAL</span>
+                </div>
+            </div>
+
+            <div class="nav-links">
+                <div class="nav-item active" onclick="switchTab('attendance', this)">
+                    <span>📅</span> <span>ATTENDANCE</span>
+                </div>
+                <div class="nav-item" onclick="switchTab('events', this)">
+                    <span>🚀</span> <span>EVENTS</span>
+                </div>
+                <div class="nav-item" id="adminNav" onclick="unlockAdmin()" style="display: none;">
+                    <span>🔒</span> <span>ADMIN</span>
+                </div>
+            </div>
+
+            <div class="sidebar-footer" ondblclick="unlockAdmin()">
+                Developed By<br><strong>Flt Cdt Milan Singh</strong>
             </div>
         </div>
 
-        <div class="dashboard-container">
+        <div class="main-content">
+            <div class="top-deco"></div>
             
-            <div id="attendance" class="panel-view active">
-                <div class="form-card">
-                    <div class="section-title">Attendance</div>
-                    <div class="section-desc">Mark your presence for the parade/session.</div>
-
-                    <div class="date-badge">
-                        DATE: <span id="displayDate">Loading...</span>
-                    </div>
-
-                    <div class="input-group">
-                        <label>Regimental Number</label>
-                        <input list="regList" id="regAtt" placeholder="Search Regimental No..." required>
-                    </div>
-
-                    <div class="grid-2">
-                        <div class="input-group">
-                            <label>Rank</label>
-                            <input list="rankList" id="rankAtt">
-                        </div>
-                        <div class="input-group">
-                            <label>Year</label>
-                            <select id="yearAtt"><option value="">Select</option><option>2nd Year</option><option>3rd Year</option></select>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <label>Cadet Name</label>
-                        <input list="nameList" id="nameAtt">
-                    </div>
-
-                    <div class="input-group">
-                        <label>Squadron</label>
-                        <select id="squadAtt"><option value="">Select Squadron</option><option>Aquino</option><option>Brar</option><option>Chitnis</option><option>Katre</option></select>
-                    </div>
-
-                    <button class="btn btn-primary" onclick="submitData('attendance')">MARK PRESENT</button>
+            <div class="marquee-bar">
+                <div style="margin-right:20px; color:#da291c;">NOTICE:</div>
+                <div class="marquee-wrapper">
+                    <span class="marquee-text" id="marqueeText">Welcome to VayuSetu Portal...</span>
                 </div>
             </div>
 
-            <div id="events" class="panel-view">
-                <div class="form-card">
-                    <div class="section-title">Mission Board</div>
-                    <div class="section-desc">Register for upcoming unit activities.</div>
-
-                    <div class="input-group">
-                        <label>Regimental Number</label>
-                        <input list="regList" id="regEvt" placeholder="Search Regimental No...">
-                    </div>
-
-                    <div class="grid-2">
-                        <div class="input-group">
-                            <label>Rank</label>
-                            <input list="rankList" id="rankEvt">
-                        </div>
-                        <div class="input-group">
-                            <label>Year</label>
-                            <select id="yearEvt"><option value="">Select</option><option>2nd Year</option><option>3rd Year</option></select>
-                        </div>
-                    </div>
-
-                    <div class="input-group">
-                        <label>Cadet Name</label>
-                        <input list="nameList" id="nameEvt">
-                    </div>
-
-                    <div class="input-group">
-                        <label>Squadron</label>
-                        <select id="squadEvt"><option value="">Select Squadron</option><option>Aquino</option><option>Brar</option><option>Chitnis</option><option>Katre</option></select>
-                    </div>
-
-                    <div class="input-group">
-                        <label>Select Event</label>
-                        <div id="dynamicEventGrid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-                            <div style="padding:10px; text-align:center; color:#999; grid-column:span 2;">Loading...</div>
-                        </div>
-                    </div>
-
-                    <div id="extraDetailsArea" style="display:none; background:#fff7ed; padding:15px; border-radius:10px; border:1px solid #fdba74; margin-bottom:20px;">
-                        <label id="extraDetailsPrompt" style="color:#c2410c;">Additional Information:</label>
-                        <textarea id="extraDetailsInput" rows="2" placeholder="Enter required details..." oninput="checkWordCount(this)"></textarea>
-                        <div id="wordCountDisplay" style="text-align:right; font-size:0.75rem; color:#c2410c;">0/100</div>
-                    </div>
-
-                    <div class="input-group">
-                        <label>Special Request</label>
-                        <input type="text" id="otherEvent" placeholder="Type here if not listed above...">
-                    </div>
-
-                    <button class="btn btn-accent" onclick="submitData('event')">REGISTER NOW</button>
-                </div>
+            <div class="mobile-header">
+                <img src="./1das.jpg" class="mobile-logo" alt="Logo">
+                <div class="mobile-title">VAYUSETU</div>
+                <div class="mobile-sub">PORTAL</div>
             </div>
 
-            <div id="admin" class="panel-view">
-                <div class="form-card" style="border-top-color: var(--ncc-gold);">
-                    <div class="section-title" style="color:#d97706;">Admin Zone</div>
-                    <div class="section-desc">System configuration and reports.</div>
+            <div class="mobile-tabs">
+                <div class="tab-pill active" onclick="switchTab('attendance', null, this)">ATTENDANCE</div>
+                <div class="tab-pill" onclick="switchTab('events', null, this)">EVENTS</div>
+            </div>
 
-                    <div class="admin-row">
-                        <div style="flex:1">
-                            <label>System Date</label>
-                            <input type="date" id="adminDateInput">
+            <div class="dashboard-container">
+                
+                <div id="attendance" class="panel-view active">
+                    <div class="form-card">
+                        <div class="section-title">Attendance</div>
+                        <div class="section-desc">Mark your presence for the parade/session.</div>
+
+                        <div class="date-badge">
+                            DATE: <span id="displayDate">Loading...</span>
                         </div>
-                        <button class="btn btn-sm btn-gray" onclick="updateConfig('date')">SET</button>
-                    </div>
 
-                    <div class="admin-row">
-                        <div style="flex:1">
-                            <label>Marquee Notice</label>
-                            <input type="text" id="newMarquee">
+                        <div class="input-group">
+                            <label>Regimental Number</label>
+                            <input list="regList" id="regAtt" placeholder="Search Regimental No..." required>
                         </div>
-                        <button class="btn btn-sm btn-gray" onclick="updateConfig('marquee')">UPD</button>
-                    </div>
 
-                    <div class="admin-row">
-                        <div style="flex:1">
-                            <label>Reports</label>
-                            <select id="pdfTarget" style="margin-bottom:0;"><option value="Attendance">Attendance Log</option></select>
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label>Rank</label>
+                                <input list="rankList" id="rankAtt">
+                            </div>
+                            <div class="input-group">
+                                <label>Year</label>
+                                <select id="yearAtt"><option value="">Select</option><option>2nd Year</option><option>3rd Year</option></select>
+                            </div>
                         </div>
-                        <button class="btn btn-sm btn-primary" onclick="getPDF()">SEE DETAILS 📋</button>
-                    </div>
 
-                    <hr style="margin:25px 0; border:0; border-top:1px solid #eee;">
+                        <div class="input-group">
+                            <label>Cadet Name</label>
+                            <input list="nameList" id="nameAtt">
+                        </div>
 
-                    <label style="color:#1e293b; font-size:0.9rem;">Event Manager</label>
-                    <div class="admin-row">
-                        <input type="text" id="newEventName" placeholder="New Event Name">
-                        <button class="btn btn-sm" style="background:#16a34a; color:white;" onclick="manageEvent('add')">ADD</button>
-                    </div>
-                    
-                    <label class="checkbox-wrapper">
-                        <input type="checkbox" id="reqExtraCheck">
-                        <span>Require Extra Info?</span>
-                    </label>
+                        <div class="input-group">
+                            <label>Squadron</label>
+                            <select id="squadAtt"><option value="">Select Squadron</option><option>Aquino</option><option>Brar</option><option>Chitnis</option><option>Katre</option></select>
+                        </div>
 
-                    <div class="admin-row">
-                        <input type="text" id="delEventName" placeholder="Delete Event Name">
-                        <button class="btn btn-sm" style="background:#dc2626; color:white;" onclick="manageEvent('delete')">DEL</button>
+                        <button class="btn btn-primary" onclick="submitData('attendance')">MARK PRESENT</button>
                     </div>
                 </div>
+
+                <div id="events" class="panel-view">
+                    <div class="form-card">
+                        <div class="section-title">Mission Board</div>
+                        <div class="section-desc">Register for upcoming unit activities.</div>
+
+                        <div class="input-group">
+                            <label>Regimental Number</label>
+                            <input list="regList" id="regEvt" placeholder="Search Regimental No...">
+                        </div>
+
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label>Rank</label>
+                                <input list="rankList" id="rankEvt">
+                            </div>
+                            <div class="input-group">
+                                <label>Year</label>
+                                <select id="yearEvt"><option value="">Select</option><option>2nd Year</option><option>3rd Year</option></select>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Cadet Name</label>
+                            <input list="nameList" id="nameEvt">
+                        </div>
+
+                        <div class="input-group">
+                            <label>Squadron</label>
+                            <select id="squadEvt"><option value="">Select Squadron</option><option>Aquino</option><option>Brar</option><option>Chitnis</option><option>Katre</option></select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Select Event</label>
+                            <div id="dynamicEventGrid" style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+                                <div style="padding:10px; text-align:center; color:#999; grid-column:span 2;">Loading...</div>
+                            </div>
+                        </div>
+
+                        <div id="extraDetailsArea" style="display:none; background:#fff7ed; padding:15px; border-radius:10px; border:1px solid #fdba74; margin-bottom:20px;">
+                            <label id="extraDetailsPrompt" style="color:#c2410c;">Additional Information:</label>
+                            <textarea id="extraDetailsInput" rows="2" placeholder="Enter required details..." oninput="checkWordCount(this)"></textarea>
+                            <div id="wordCountDisplay" style="text-align:right; font-size:0.75rem; color:#c2410c;">0/100</div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Special Request</label>
+                            <input type="text" id="otherEvent" placeholder="Type here if not listed above...">
+                        </div>
+
+                        <button class="btn btn-accent" onclick="submitData('event')">REGISTER NOW</button>
+                    </div>
+                </div>
+
+                <div id="admin" class="panel-view">
+                    <div class="form-card" style="border-top-color: var(--ncc-gold);">
+                        <div class="section-title" style="color:#d97706;">Admin Zone</div>
+                        <div class="section-desc">System configuration and reports.</div>
+
+                        <div class="admin-row">
+                            <div style="flex:1">
+                                <label>System Date</label>
+                                <input type="date" id="adminDateInput">
+                            </div>
+                            <button class="btn btn-sm btn-gray" onclick="updateConfig('date')">SET</button>
+                        </div>
+
+                        <div class="admin-row">
+                            <div style="flex:1">
+                                <label>Marquee Notice</label>
+                                <input type="text" id="newMarquee">
+                            </div>
+                            <button class="btn btn-sm btn-gray" onclick="updateConfig('marquee')">UPD</button>
+                        </div>
+
+                        <div class="admin-row">
+                            <div style="flex:1">
+                                <label>Reports</label>
+                                <select id="pdfTarget" style="margin-bottom:0;"><option value="Attendance">Attendance Log</option></select>
+                            </div>
+                            <button class="btn btn-sm btn-primary" onclick="getPDF()">SEE DETAILS 📋</button>
+                        </div>
+
+                        <hr style="margin:25px 0; border:0; border-top:1px solid #eee;">
+
+                        <label style="color:#1e293b; font-size:0.9rem;">Event Manager</label>
+                        <div class="admin-row">
+                            <input type="text" id="newEventName" placeholder="New Event Name">
+                            <button class="btn btn-sm" style="background:#16a34a; color:white;" onclick="manageEvent('add')">ADD</button>
+                        </div>
+                        
+                        <div class="checkbox-row">
+                            <input type="checkbox" id="reqExtraCheck">
+                            <label for="reqExtraCheck">Require Extra Info?</label>
+                        </div>
+
+                        <div class="admin-row">
+                            <input type="text" id="delEventName" placeholder="Delete Event Name">
+                            <button class="btn btn-sm" style="background:#dc2626; color:white;" onclick="manageEvent('delete')">DEL</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="mobile-footer" ondblclick="unlockAdmin()">
+                <div class="dev-badge">Developed By <strong>Flt Cdt Milan Singh</strong></div>
             </div>
 
         </div>
@@ -537,16 +487,32 @@
             }).catch(e => { document.getElementById('marqueeText').innerText = "System Offline"; });
         };
 
-        function switchTab(viewId, btn) {
+        function switchTab(viewId, desktopBtn, mobileBtn) {
+            // Switch Panel
             document.querySelectorAll('.panel-view').forEach(el => el.classList.remove('active'));
             document.getElementById(viewId).classList.add('active');
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-            btn.classList.add('active');
+            
+            // Switch Desktop Nav
+            if(desktopBtn) {
+                document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+                desktopBtn.classList.add('active');
+            }
+
+            // Switch Mobile Tabs
+            if(mobileBtn) {
+                document.querySelectorAll('.tab-pill').forEach(el => el.classList.remove('active'));
+                mobileBtn.classList.add('active');
+            }
         }
 
-        function unlockAdmin(btn) { 
+        function unlockAdmin() { 
             if(prompt("Enter PIN:") === "2347") { 
-                switchTab('admin', document.getElementById('adminNav'));
+                // Show hidden nav item on desktop
+                const adminNav = document.getElementById('adminNav');
+                adminNav.style.display = 'flex';
+                
+                // Switch to admin view
+                switchTab('admin', adminNav, null);
             } 
         }
 
