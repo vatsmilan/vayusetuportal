@@ -8,23 +8,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Orbitron:wght@600;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
+            /* NCC Flag Colors */
             --ncc-red: #da291c;
             --ncc-dark-blue: #00205b;
             --ncc-light-blue: #7da1c4;
             --ncc-gold: #FFD700;
+            
+            /* UI Colors */
+            --glass-bg: rgba(255, 255, 255, 0.1);
             --glass-border: rgba(255, 255, 255, 0.2);
+            --card-bg: #ffffff;
             --text-dark: #1e293b;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
         body {
-            /* NCC Gradient Background */
+            height: 100vh;
+            width: 100vw;
+            /* DIAGONAL NCC FLAG GRADIENT */
             background: linear-gradient(135deg, var(--ncc-red), var(--ncc-dark-blue), var(--ncc-light-blue));
             background-size: 200% 200%;
             animation: gradientMove 15s ease infinite;
-            min-height: 100vh;
-            color: var(--text-dark);
+            display: flex;
+            overflow: hidden;
         }
 
         @keyframes gradientMove {
@@ -54,6 +61,9 @@
             padding: 30px 25px;
             flex-shrink: 0;
             z-index: 20;
+            /* FIX FOR MOBILE DESKTOP MODE SCROLLING */
+            overflow-y: auto; 
+            max-height: 100vh;
         }
 
         .brand-box {
@@ -63,6 +73,7 @@
             padding-bottom: 30px;
             border-bottom: 1px solid var(--glass-border);
             margin-bottom: 30px;
+            flex-shrink: 0; /* Don't shrink logo */
         }
 
         .brand-logo { 
@@ -85,34 +96,53 @@
             font-weight: 700; text-transform: uppercase; display: block; margin-top: 5px;
         }
 
-        .nav-links { flex: 1; display: flex; flex-direction: column; gap: 12px; }
+        .nav-links { 
+            flex: 1; 
+            display: flex; 
+            flex-direction: column; 
+            gap: 12px; 
+            min-height: min-content; /* Ensure space for links */
+        }
 
         .nav-item {
             padding: 16px 20px; border-radius: 12px; cursor: pointer;
             color: rgba(255,255,255,0.9); font-weight: 600; transition: all 0.3s;
             display: flex; align-items: center; gap: 15px; border: 1px solid transparent;
+            flex-shrink: 0;
         }
         .nav-item:hover { background: rgba(255,255,255,0.15); transform: translateX(5px); }
         .nav-item.active { background: white; color: var(--ncc-dark-blue); box-shadow: 0 5px 20px rgba(0,0,0,0.3); font-weight: 800; }
 
+        /* FOOTER FIX: Pushed to bottom but scrollable if screen is short */
         .sidebar-footer {
-            margin-top: auto; text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.8);
-            padding: 10px; border-radius: 50px; background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2); cursor: pointer; transition: 0.3s;
+            margin-top: 40px; /* Space from nav links */
+            text-align: center; 
+            font-size: 0.8rem; 
+            color: white;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px; 
+            cursor: pointer; 
+            transition: 0.3s;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            flex-shrink: 0; /* Prevent squishing */
         }
-        .sidebar-footer:hover { background: rgba(255,255,255,0.3); }
+        .sidebar-footer:hover { background: rgba(255,255,255,0.25); transform: translateY(-2px); }
 
         /* --- Main Content (Desktop) --- */
         .main-content {
             flex: 1; display: flex; flex-direction: column; position: relative;
         }
 
-        .top-deco { height: 6px; background: linear-gradient(90deg, #FF9933, #FFFFFF, #138808); width: 100%; z-index: 5; }
+        .top-deco { height: 6px; background: linear-gradient(90deg, #FF9933, #FFFFFF, #138808); width: 100%; z-index: 5; flex-shrink: 0; }
 
         .marquee-bar {
             background: rgba(255,255,255,0.95); padding: 10px 20px;
             color: var(--ncc-dark-blue); font-weight: 700; font-size: 0.95rem;
             display: flex; align-items: center; box-shadow: 0 5px 15px rgba(0,0,0,0.1); z-index: 4;
+            flex-shrink: 0;
         }
         .marquee-wrapper { flex: 1; overflow: hidden; white-space: nowrap; }
         .marquee-text { display: inline-block; animation: scroll 20s linear infinite; }
@@ -170,9 +200,12 @@
         .btn-accent { background: linear-gradient(135deg, var(--ncc-red), #b91c1c); color: white; box-shadow: 0 10px 25px rgba(218, 41, 28, 0.3); }
         .btn-accent:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(218, 41, 28, 0.4); }
 
-        .checkbox-row { display: flex; align-items: center; margin-bottom: 15px; margin-top: 5px; }
-        .checkbox-row input { width: 20px; height: 20px; margin: 0 10px 0 0; cursor: pointer; }
-        .checkbox-row label { margin: 0; cursor: pointer; text-transform: none; font-size: 0.95rem; }
+        .checkbox-wrapper {
+            display: flex; align-items: center; justify-content: flex-start;
+            gap: 10px; margin-bottom: 10px; cursor: pointer;
+        }
+        .checkbox-wrapper input { width: auto; margin: 0; cursor: pointer; }
+        .checkbox-wrapper span { font-size: 0.9rem; font-weight: 600; color: #555; }
 
         /* Admin Styles */
         .admin-row { display: flex; gap: 15px; margin-bottom: 15px; align-items: flex-end; }
@@ -225,8 +258,16 @@
                 font-size: 0.8rem; color: rgba(255,255,255,0.8);
             }
             .dev-badge {
-                display: inline-block; padding: 8px 20px; background: rgba(0,0,0,0.3);
-                border-radius: 50px; border: 1px solid rgba(255,255,255,0.2); cursor: pointer;
+                display: inline-block; 
+                padding: 12px 15px;
+                background: rgba(255, 255, 255, 0.15);
+                border: 1px solid rgba(255, 255, 255, 0.3);
+                border-radius: 50px; 
+                cursor: pointer; 
+                transition: 0.3s;
+                backdrop-filter: blur(5px);
+                box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                color: white;
             }
         }
     </style>
@@ -413,10 +454,10 @@
                             <button class="btn btn-sm" style="background:#16a34a; color:white;" onclick="manageEvent('add')">ADD</button>
                         </div>
                         
-                        <div class="checkbox-row">
+                        <label class="checkbox-wrapper">
                             <input type="checkbox" id="reqExtraCheck">
-                            <label for="reqExtraCheck">Require Extra Info?</label>
-                        </div>
+                            <span>Require Extra Info?</span>
+                        </label>
 
                         <div class="admin-row">
                             <input type="text" id="delEventName" placeholder="Delete Event Name">
@@ -428,7 +469,7 @@
             </div>
 
             <div class="mobile-footer" ondblclick="unlockAdmin()">
-                <div class="dev-badge">Developed By <strong>Flt Cdt Milan Singh</strong></div>
+                <div class="dev-badge">Developed By<br><strong>Flt Cdt Milan Singh</strong></div>
             </div>
 
         </div>
