@@ -446,6 +446,7 @@
         regimentalNumbers.push(...extraRegs);
         const names = ["Milan Singh", "PIYUSH PARMAR", "SAURABH YADAV", "Kartik Saini", "RISHABH RAJA", "Amrinder Singh Grewal", "Aniket Raj", "Kartikay Singh Jagirdar", "ANUJ YADAV", "Anubhav Kr Singh", "ABHINANDAN KUMAR SINGH", "SHUBHAM SHARMA", "RAHUL CHAURSIA", "ADITYA SIROHI", "Sameer chauhan", "Prem Bhardwaj", "Ravada Pawan Kumar", "Abhishek Mishra", "HARSHVARDHAN CHHETRI", "AALOK KUMAR", "Rahul Singh Dusad", "VISHU NAMDEV", "Madhusudan Singh Legha", "Hare Krishna Naik", "DHRUV CHAUHAN", "SHIVAM TIWARI", "PRIYANSHU THAKUR", "Samarth Rangar", "PRASHANT AWASTHI", "RISHABH NEGI", "Pratyush Bhalla", "TANISHK VERMA", "Nitin", "DEEPU", "Arpit", "Satyam Kumar", "SUJEET KUMAR YADAV", "PAWAN KUMAR SAH", "KARTIK DAGAR", "Aryan", "KANISH SHARMA", "HARSH RAJ SINGH", "Vivek Thakur", "RUDRAKSH SINGH", "Aditya Singh", "Vansh", "GOPAL", "Sankalp Choudhary", "Joysuriya Bhattacharjee", "ARYAN SINGH", "Anang Shashwat Tarun", "GARVIT", "ARPIT YADAV", "NAZIR UDDIN", "FAIZ MOHAMMAD", "ABDULLAH", "JITENDRA SINGH", "DILAWAR KHAN", "GULKESH", "IMRAN ALAM", "HASSAN HASAN", "AFTAB ALI", "MD MUSHFIQUE DANYAL", "MANABHANJAN MAHANANDA", "MUHAMMED YAZID A H", "SHAKEEB ARSALAN M P", "MOHAMMAD AHAMAD KHAN", "MD MASROOF ALAM", "GUFRAN KHAN", "NEERAJ", "SAHIL", "ATUL", "MANAS KUMAR JHA", "ANUJ SHAKYA", "VIKRAM SINGH", "SANDEEP", "SHREYASKOR BORGOHAIN", "VIKAS KUMAR GUPTA", "BIMAL GORAI", "PRASHANT KUMAR CHAUBEY", "SIDHARTH", "RAHUL SINGH", "HIMANSHU", "SHIV NARAYAN", "SANDEEP KUMAR", "ROHIT PANDEY", "SUBHAJIT DAS", "MD NASURALLAH", "SANDEEP YADAV", "SIMARJEET SINGH", "HIMANSHU SINGH TOMAR", "DEEPAK KUMAR", "HARSH YADAV", "PRATYUSH KUMAR SINGH", "GAUTAM RAWAT", "ADITYA SINGH", "KISHLEY ACHARYA", "TUSHAR YADAV", "VARUN KUMAR SINGH", "VANSH", "ADITYA JHA", "SHIVANG SHARMA", "GENIUS CHAUHAN", "VISHAL GUPTA", "ANSHUL DIXIT", "SATYAM KUMAR", "YASH RAJ", "RAJ KUMAR", "ABHIMANYU KELODIYA", "SUKEERAT SINGH", "HARMANDEEP SINGH", "ABHISHEK MANDAL", "NIKHIL KUMAR", "NACHIKETA SANASAM", "ABHINIT KUMAR", "DHRUV UPRETI", "KARTIK ROSE", "ANSH JOON", "MOHIT KUMAR SINGH", "ARYAN GAMBHIR", "SHRESTHA BHANDARI", "SAKSHAM DUBEY", "NAKUL", "SHIVANG YADAV", "KONADA MOHAN SRIVATSAV", "SUBHAM SINGH", "ANGAT BAKHLA", "DURGA SHANKER PANDEY", "HITENDRA PRATAP SINGH", "HIMANSHU YADAV", "ARYAN SHRIVASTAVA", "HIRA LAUR", "VANSH DABAS", "DAKSH BHATI", "HIMANSHU", "NEERAJ YADAV", "HARSHVARDHAN", "PARTH SINGH", "PRADEEP KUMAR", "PRAVESH KUMAR", "ANUJ RAWAT", "VISHAV VARDHAN SINGH RATHORE", "PRIYANSHU RAJ", "YASH RATHEE", "ANKIT KUMAR", "ANUBHAV", "RISHABH RANA", "RONAK SINGH", "KAPISH", "KUMAR ARYAN", "PRANAV BHATT", "UTTAM", "VATSAL VASHISHTH", "HARI OM", "MEHARSH BENSLA", "ARTHAV UPADHYAY", "JAI PRATAP SINGH", "ADITYA KUMAR YADAV", "SAURAV KUMAR", "RITIK", "ARYAN PRASAD", "SHUBHAM SIHAG", "MANISH KUMAR", "SHUBHAM KUMAR SAURABH", "DEV KUMAR GOPALA", "SACHIN KUMAR JHA", "YASH KUMAR RAI", "PIYUSH KUMAR", "YATHARTH SINGH BANSLA", "SHASHWAT KUMAR MISHRA", "RANJEET KUMAR", "TUSHAR DAGAR", "PRASHANT KUMAR", "HIMANSHU KUMAR", "AYUSH YADAV", "AYUSH RANJAN", "RAJVEER YADAV", "AAMIR JAVID", "SHRI KISHAN", "DANISH IQBAL", "KESHAV KUMAR JHA", "CHINMAY DIXIT", "MARUPH PARVEZ", "YASH NAGAL", "SURAJ", "ABU SHAMA NOOR", "ROHIT", "DIVYANSH SINGH", "MOHAMMAD SHAHRUKH KHAN", "ANAND", "WASIM AKRAM", "MOHAMMAD ALI", "NISHANT SINGH", "AZIM JAVED", "ZAYAAN KHURSHEED", "SALIM", "MOHD AFFAN", "ADHNAN V"];
 // --- NEW HELPER FUNCTION ---
+// --- NEW HELPER FUNCTION TO FORMAT DATE ---
 function formatToDDMMYYYY(dateStr) {
     if (!dateStr || !dateStr.includes('-')) return dateStr;
     const [year, month, day] = dateStr.split('-');
@@ -461,7 +462,7 @@ function formatToDDMMYYYY(dateStr) {
             .then(res => res.json()).then(data => {
                 if(data.status === 'success') {
                     document.getElementById('marqueeText').innerText = data.marquee || "VAYUSETU Portal Online";
-                    document.getElementById('displayDate').innerText = formatToDDMMYYYY(data.sysDate) || "...";
+                   document.getElementById('displayDate').innerText = formatToDDMMYYYY(data.sysDate) || "...";
                     const list = document.getElementById('dynamicEventGrid');
                     const pdfSel = document.getElementById('pdfTarget');
                     list.innerHTML = "";
@@ -596,7 +597,7 @@ function formatToDDMMYYYY(dateStr) {
     .then(d => { 
         alert(d.message); 
         // THIS IS THE CHANGED PART FOR DATE FORMATTING
-        if(type === 'date') document.getElementById('displayDate').innerText = formatToDDMMYYYY(val); 
+        if(type === 'date') document.getElementById('displayDate').innerText = formatToDDMMYYYY(val);
         if(type === 'marquee') document.getElementById('marqueeText').innerText = val; 
     });
 }
@@ -622,6 +623,7 @@ function formatToDDMMYYYY(dateStr) {
     </script>
 </body>
 </html>
+
 
 
 
